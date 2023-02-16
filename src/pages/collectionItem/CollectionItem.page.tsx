@@ -1,7 +1,5 @@
-import { Outlet } from "react-router-dom";
-
-const Collection = () => {
-  return <Outlet />;
+const CollectionItemPage = () => {
+  return <div>CollectionItem</div>;
 };
 
-export default Collection;
+export default CollectionItemPage;

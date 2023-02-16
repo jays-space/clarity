@@ -1,7 +1,5 @@
-import { Outlet } from "react-router-dom";
-
 const TermsAndConditions = () => {
-  return <Outlet />;
+  return <div>Ts&Cs</div>;
 };
 
 export default TermsAndConditions;

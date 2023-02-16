@@ -1,46 +1,44 @@
-import { RoutesType } from "@/router";
+import { RoutesType } from "@router";
 
-const config: RoutesType = {
+export const routerConfig: RoutesType = {
   HomePage: {
-    name: "home",
-    pathname: "/",
-  },
-  AccountPage: {
-    name: "my account",
-    pathname: "/my_account",
-  },
-  CartPage: {
-    name: "cart",
-    pathname: "/cart",
+    label: "home",
+    path: "/",
   },
   CollectionPage: {
-    name: "cupcakes",
-    pathname: "/cupcakes",
+    label: "cupcakes",
+    path: "/cupcakes",
   },
   CollectionItemPage: {
-    name: "cupcake",
-    pathname: "/:cupcakeID",
+    label: "cupcake",
+    path: "/:cupcakeID",
+  },
+  AccountPage: {
+    label: "my account",
+    path: "/my_account",
   },
   ContactPage: {
-    name: "contact",
-    pathname: "/contact",
+    label: "contact",
+    path: "/contact",
   },
-  PrivacyPolicyPage: {
-    name: "privacy policy",
-    pathname: "/privacy_policy",
-  },
-  SignInPage: {
-    name: "sign in",
-    pathname: "/sign_in",
-  },
-  SignUpPage: {
-    name: "sign up",
-    pathname: "/sign_up",
+  CartPage: {
+    label: "cart",
+    path: "/cart",
   },
   TermsAndConditionsPage: {
-    name: "terms & conditions",
-    pathname: "/terms_and_conditions",
+    label: "terms & conditions",
+    path: "/terms_and_conditions",
+  },
+  PrivacyPolicyPage: {
+    label: "privacy policy",
+    path: "/privacy_policy",
+  },
+  SignInPage: {
+    label: "sign in",
+    path: "/sign_in",
+  },
+  SignUpPage: {
+    label: "sign up",
+    path: "/sign_up",
   },
 };
-
-export default config;

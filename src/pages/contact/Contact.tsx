@@ -1,7 +1,5 @@
-import { Outlet } from "react-router-dom";
-
 const Contact = () => {
-  return <Outlet />;
+  return <div>Contact</div>;
 };
 
 export default Contact;

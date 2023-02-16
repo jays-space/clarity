@@ -1,7 +1,5 @@
-import { Outlet } from "react-router-dom";
-
 const PrivacyPolicy = () => {
-  return <Outlet />;
+  return <div>Privacy</div>;
 };
 
 export default PrivacyPolicy;

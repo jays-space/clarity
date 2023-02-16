@@ -1,7 +1,5 @@
-import { Outlet } from "react-router-dom";
-
 const SignUp = () => {
-  return <Outlet />;
+  return <div>SignUp</div>;
 };
 
 export default SignUp;

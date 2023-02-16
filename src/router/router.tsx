@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // CONFIG
-import { routerConfig } from "@/router";
+import { routerConfig } from "./router.config";
 
 // ROUTES
 import {
@@ -16,49 +16,55 @@ import {
   SignUpPage,
   TermsAndConditionsPage,
 } from "@/pages";
+import { Layout } from "@/components/templates";
 
 const router = createBrowserRouter([
   {
-    path: routerConfig.HomePage.pathname,
-    element: <HomePage />,
-  },
-  {
-    path: routerConfig.AccountPage.pathname,
-    element: <AccountPage />,
-  },
-  {
-    path: routerConfig.CartPage.pathname,
-    element: <CartPage />,
-  },
-  {
-    path: routerConfig.CollectionPage.pathname,
-    element: <CollectionPage />,
+    element: <Layout />,
     children: [
       {
-        path: routerConfig.CollectionItemPage.pathname,
-        element: <CollectionItemPage />,
+        path: routerConfig.HomePage.path,
+        element: <HomePage />,
+      },
+      {
+        path: routerConfig.AccountPage.path,
+        element: <AccountPage />,
+      },
+      {
+        path: routerConfig.CartPage.path,
+        element: <CartPage />,
+      },
+      {
+        path: routerConfig.CollectionPage.path,
+        element: <CollectionPage />,
+        children: [
+          {
+            path: `${routerConfig.CollectionPage.path}${routerConfig.CollectionItemPage.path}`,
+            element: <CollectionItemPage />,
+          },
+        ],
+      },
+      {
+        path: routerConfig.ContactPage.path,
+        element: <ContactPage />,
+      },
+      {
+        path: routerConfig.PrivacyPolicyPage.path,
+        element: <PrivacyPolicyPage />,
+      },
+      {
+        path: routerConfig.SignInPage.path,
+        element: <SignInPage />,
+      },
+      {
+        path: routerConfig.SignUpPage.path,
+        element: <SignUpPage />,
+      },
+      {
+        path: routerConfig.TermsAndConditionsPage.path,
+        element: <TermsAndConditionsPage />,
       },
     ],
-  },
-  {
-    path: routerConfig.ContactPage.pathname,
-    element: <ContactPage />,
-  },
-  {
-    path: routerConfig.PrivacyPolicyPage.pathname,
-    element: <PrivacyPolicyPage />,
-  },
-  {
-    path: routerConfig.SignInPage.pathname,
-    element: <SignInPage />,
-  },
-  {
-    path: routerConfig.SignUpPage.pathname,
-    element: <SignUpPage />,
-  },
-  {
-    path: routerConfig.TermsAndConditionsPage.pathname,
-    element: <TermsAndConditionsPage />,
   },
 ]);
 

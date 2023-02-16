@@ -1,7 +1,5 @@
-import { Outlet } from "react-router-dom";
-
 const Cart = () => {
-  return <Outlet />;
+  return <div>Cart</div>;
 };
 
 export default Cart;

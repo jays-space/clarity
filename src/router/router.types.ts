@@ -1,6 +1,6 @@
 export type RouteType = {
-  name: string;
-  pathname: string;
+  label: string;
+  path: string;
 };
 
 export type RoutesType = {
