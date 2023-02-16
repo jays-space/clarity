@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@router": ["./src/router"],
+      "@components/atomic": ["./src/components/atomic"],
+      "@components/integrated": ["./src/components/integrated"],
+      "@components/templates": ["./src/components/templates"],
+      "@pages": ["./src/pages"],
+      "@types": ["./src/types"],
+    }
+  }
+}
