@@ -19,7 +19,7 @@ const Cart = ({ cartItems, testID = "" }: ICart) => {
       <Icon name={IconNames.cart} color="light" />
 
       <div className="absolute flex -bottom-1 -right-1 w-5 h-5 bg-gray-800 text-white items-center justify-center rounded-full">
-        <Text copy={cartItems.toString()} size="xs" />
+        <Text copy={cartItems.toString()} size="xs" color="light" />
       </div>
     </button>
   );

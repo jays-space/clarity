@@ -11,7 +11,7 @@ const CartAndSearchContainer = ({
 }: ICartAndSearchContainer) => {
   return (
     <div
-      className="flex flex-row justify-between items-center bg-secondary-600 gap-4 rounded-2xl px-4 py-1"
+      className="flex flex-row justify-between items-center bg-secondary-600 gap-4 rounded-2xl px-4 py-1 drop-shadow-lg"
       data-testid={testID}
     >
       {/* search component */}

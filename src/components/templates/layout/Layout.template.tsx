@@ -1,13 +1,11 @@
-import { Outlet } from "react-router-dom";
-
 // COMPONENTS
-import { Footer, NavBar } from "@/components/templates";
+import { Footer, MainContent, NavBar } from "@/components/templates";
 
 const Layout = () => {
   return (
-    <div className="px-10">
+    <div className="px-10 flex flex-col min-h-screen">
       <NavBar />
-      <Outlet />
+      <MainContent />
       <Footer />
     </div>
   );
