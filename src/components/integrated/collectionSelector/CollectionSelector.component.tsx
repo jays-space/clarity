@@ -1,4 +1,5 @@
 // COMPONENTS
+import { Image } from "@/components/atomic";
 import { Heading } from "@/components/atomic/typography";
 
 interface ICollectionSelector {
@@ -21,7 +22,7 @@ const CollectionSelector = ({
     >
       {/* image */}
       <div className={`overflow-hidden rounded-3xl`}>
-        <img
+        <Image
           src={src}
           alt={alt}
           className={`max-w-xs aspect-square object-none object-bottom opacity-90 group-hover:scale-110 transition-transform duration-700`}

@@ -6,18 +6,16 @@ import { Heading } from "@/components/atomic/typography";
 import { CollectionSelector } from "@/components/integrated";
 
 // UTILS
-import { splitAndJoin } from "@/utils";
+import { stringUtils } from "@/utils";
 
 // MOCK
-import { collectionTypes } from "@/mock/CollectionPage.mock";
+import { collectionTypes } from "@/mock/CollectionsPage.mock";
 
 const CollectionsPage = () => {
   const navigate = useNavigate();
 
   const onCollectionSelect = (collection: string) => {
-    navigate(`${collection}`, {
-      state: { collection },
-    });
+    navigate(`${collection}`);
   };
 
   return (
@@ -36,7 +34,9 @@ const CollectionsPage = () => {
               label={name}
               src={uri}
               alt={alt}
-              onClick={() => onCollectionSelect(splitAndJoin(name, " ", "_"))}
+              onClick={() =>
+                onCollectionSelect(stringUtils.splitAndJoin(name, " ", "_"))
+              }
             />
           );
         })}

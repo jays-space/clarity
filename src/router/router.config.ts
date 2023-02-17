@@ -11,7 +11,7 @@ export const routerConfig: RoutesType = {
   },
   CollectionPage: {
     label: "collection",
-    path: "/:collectionID",
+    path: "/:collectionName",
   },
   CollectionItemPage: {
     label: "collection item",

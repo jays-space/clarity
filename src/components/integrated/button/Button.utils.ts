@@ -4,7 +4,7 @@ import { ButtonVariantTypes } from "./Button.types";
 
 export const getButtonVariantStyles = (variant: ButtonVariantTypes) => {
   const baseStyles = `w-fit border-2 rounded-full transform duration-150`;
-  const spacing = `px-8 py-3`;
+  const spacing = `px-8 py-2`;
   const color = `bg-white`;
 
   switch (variant) {
