@@ -10,6 +10,7 @@ module.exports = {
       '@components/templates': path.resolve(__dirname, 'src/components/templates'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@types': path.resolve(__dirname, 'src/types'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
     },
   },
 };

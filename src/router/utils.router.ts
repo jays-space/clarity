@@ -7,7 +7,7 @@ export const getNavLinks = () => {
       routerConfig[route as keyof RoutesType].label ===
         routerConfig.HomePage.label ||
       routerConfig[route as keyof RoutesType].label ===
-        routerConfig.CollectionPage.label ||
+        routerConfig.CollectionsPage.label ||
       routerConfig[route as keyof RoutesType].label ===
         routerConfig.AccountPage.label
     ) {

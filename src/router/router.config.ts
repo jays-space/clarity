@@ -5,12 +5,16 @@ export const routerConfig: RoutesType = {
     label: "home",
     path: "/",
   },
-  CollectionPage: {
+  CollectionsPage: {
     label: "cupcakes",
     path: "/cupcakes",
   },
+  CollectionPage: {
+    label: "collection",
+    path: "/:collectionID",
+  },
   CollectionItemPage: {
-    label: "cupcake",
+    label: "collection item",
     path: "/:cupcakeID",
   },
   AccountPage: {

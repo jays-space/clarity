@@ -9,6 +9,7 @@ import {
   CartPage,
   CollectionItemPage,
   CollectionPage,
+  CollectionsPage,
   ContactPage,
   HomePage,
   PrivacyPolicyPage,
@@ -35,14 +36,16 @@ const router = createBrowserRouter([
         element: <CartPage />,
       },
       {
-        path: routerConfig.CollectionPage.path,
+        path: routerConfig.CollectionsPage.path,
+        element: <CollectionsPage />,
+      },
+      {
+        path: `${routerConfig.CollectionsPage.path}${routerConfig.CollectionPage.path}`,
         element: <CollectionPage />,
-        children: [
-          {
-            path: `${routerConfig.CollectionPage.path}${routerConfig.CollectionItemPage.path}`,
-            element: <CollectionItemPage />,
-          },
-        ],
+      },
+      {
+        path: `${routerConfig.CollectionsPage.path}${routerConfig.CollectionPage.path}${routerConfig.CollectionItemPage.path}`,
+        element: <CollectionItemPage />,
       },
       {
         path: routerConfig.ContactPage.path,

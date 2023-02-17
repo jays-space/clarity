@@ -7,6 +7,7 @@ export type RoutesType = {
   HomePage: RouteType;
   AccountPage: RouteType;
   CartPage: RouteType;
+  CollectionsPage: RouteType;
   CollectionPage: RouteType;
   CollectionItemPage: RouteType;
   ContactPage: RouteType;
