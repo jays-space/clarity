@@ -12,6 +12,7 @@ interface IButton {
   variant?: ButtonVariantTypes;
   onClick: () => void;
   className?: string;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -19,11 +20,13 @@ const Button = ({
   variant = "default",
   onClick,
   className = "",
+  disabled = false,
 }: IButton) => {
   return (
     <button
       className={`${className} ${getButtonVariantStyles(variant)}`}
       onClick={onClick}
+      disabled={disabled}
     >
       <Text
         copy={label}

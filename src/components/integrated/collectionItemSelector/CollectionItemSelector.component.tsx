@@ -5,6 +5,7 @@ import { Button } from "@components/integrated";
 
 // UTILS
 import { numberUtils } from "@/utils";
+import { useCartContext } from "@/contexts";
 
 interface ICollectionItemSelector {
   src: string;
@@ -21,8 +22,15 @@ const CollectionItemSelector = ({
   onAddToBagClick,
   onViewCupcakeClick,
 }: ICollectionItemSelector) => {
+  const { isCartItemVisible } = useCartContext();
+
   return (
-    <div className={`group rounded-3xl border max-w-xs`}>
+    <div
+      className={`group rounded-3xl border max-w-xs ${
+        isCartItemVisible ? "-z-10" : "-z-0" 
+      } 
+    `}
+    >
       {/* image */}
       <div
         className={`overflow-hidden rounded-t-3xl group-hover:bg-primary-600 transition-color duration-300`}
@@ -56,7 +64,7 @@ const CollectionItemSelector = ({
             variant="secondary"
             label="view"
             onClick={onViewCupcakeClick}
-            className={`z-10`}
+            className={`z-400`}
           />
           <Button
             variant="primary"

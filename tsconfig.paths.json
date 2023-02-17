@@ -11,6 +11,7 @@
       "@pages": ["./src/pages"],
       "@types": ["./src/types"],
       "@utils": ["./src/utils"],
+      "@contexts": ["./src/contexts"],
     }
   }
 }

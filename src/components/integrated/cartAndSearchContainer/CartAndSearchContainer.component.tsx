@@ -1,3 +1,5 @@
+import { useCartContext } from "@contexts";
+
 // COMPONENTS
 import { Cart } from "./cart";
 import { Search } from "./search";
@@ -9,6 +11,8 @@ interface ICartAndSearchContainer {
 const CartAndSearchContainer = ({
   testID = "cart-and-search-container",
 }: ICartAndSearchContainer) => {
+  const { cartItems } = useCartContext();
+
   return (
     <div
       className="flex flex-row justify-between items-center bg-secondary-600 gap-4 rounded-2xl px-4 py-1 drop-shadow-lg"
@@ -18,7 +22,7 @@ const CartAndSearchContainer = ({
       <Search />
 
       {/* cart component */}
-      <Cart cartItems={0} />
+      <Cart cartItems={cartItems} />
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import { Image, Page } from "@/components/atomic";
 import { Heading, Text } from "@/components/atomic/typography";
 import { Button } from "@/components/integrated";
+import { useCartContext } from "@/contexts";
 
 // UTILS
 import { numberUtils } from "@/utils";
@@ -12,6 +13,7 @@ interface ICollectionItemTemplate {
   price: number;
   uri: string;
   addToBagClick: () => void;
+  removeFromBagClick: () => void;
 }
 
 const CollectionItemTemplate = ({
@@ -20,10 +22,17 @@ const CollectionItemTemplate = ({
   price,
   uri,
   addToBagClick = () => {},
+  removeFromBagClick = () => {},
 }: ICollectionItemTemplate) => {
+  const { cartItems, isCartItemVisible } = useCartContext();
+
   return (
     <Page>
-      <div className={`flex flex-row gap-20`}>
+      <div
+        className={`flex flex-row gap-20 ${
+          isCartItemVisible ? "-z-10" : "z-0"
+        } `}
+      >
         <div className={`overflow-hidden rounded-3xl flex-1`}>
           <Image
             src={uri}
@@ -50,6 +59,13 @@ const CollectionItemTemplate = ({
               />
               <Text copy={`/6pcs`} bold />
             </div>
+            <Button
+              variant="secondary"
+              label="remove from bag"
+              onClick={removeFromBagClick}
+              className={`z-10`}
+              disabled={false}
+            />
             <Button
               variant="primary"
               label="add to bag"
