@@ -21,3 +21,8 @@ export { AddStoreCollectionPage } from "./storeManagement/collectionPages/new";
 export { StoreCollectionItemPage } from "./storeManagement/collectionItemPages/root";
 export { EditStoreCollectionItemPage } from "./storeManagement/collectionItemPages/edit";
 export { AddStoreCollectionItemPage } from "./storeManagement/collectionItemPages/new";
+
+export { StoreAdminItemPage } from "./storeManagement/admin/adminItem";
+export { EditStoreAdminPage } from "./storeManagement/admin/edit";
+export { AddStoreAdminPage } from "./storeManagement/admin/new";
+export { StoreAdminPage } from "./storeManagement/admin/root";

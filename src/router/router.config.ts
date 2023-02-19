@@ -85,10 +85,14 @@ export const routerConfig: RoutesType = {
   },
   AddStoreAdminPage: {
     label: "add new admin",
-    path: `${StoreRoot}/new_admin`,
+    path: `${StoreRoot}/admins/new_admin`,
   },
   EditStoreAdminPage: {
-    label: "add new admin",
-    path: `${StoreRoot}/:adminID/edit`,
+    label: "edit admin",
+    path: `${StoreRoot}/admins/:adminID/edit`,
+  },
+  StoreAdminItemPage: {
+    label: "edit admin",
+    path: `${StoreRoot}/admins/:adminID`,
   },
 };

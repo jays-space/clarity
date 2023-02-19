@@ -6,6 +6,7 @@ import { StoreRoot, routerConfig } from "./router.config";
 // ROUTES
 import {
   AccountPage,
+  AddStoreAdminPage,
   AddStoreCollectionItemPage,
   AddStoreCollectionPage,
   CartPage,
@@ -13,12 +14,15 @@ import {
   CollectionPage,
   CollectionsPage,
   ContactPage,
+  EditStoreAdminPage,
   EditStoreCollectionItemPage,
   EditStoreCollectionPage,
   HomePage,
   PrivacyPolicyPage,
   SignInPage,
   SignUpPage,
+  StoreAdminItemPage,
+  StoreAdminPage,
   StoreCollectionItemPage,
   StoreCollectionPage,
   StoreCollectionsPage,
@@ -26,9 +30,6 @@ import {
   TermsAndConditionsPage,
 } from "@/pages";
 import { Layout } from "@/components/templates";
-import { AddStoreAdminPage } from "@/pages/storeManagement/admin/new";
-import { EditStoreAdminPage } from "@/pages/storeManagement/admin/edit";
-import { StoreAdminPage } from "@/pages/storeManagement/admin/root";
 
 const router = createBrowserRouter([
   {
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
           {
             path: `${routerConfig.AddStoreAdminPage.path}`,
             element: <AddStoreAdminPage />,
+          },
+          {
+            path: `${routerConfig.StoreAdminItemPage.path}`,
+            element: <StoreAdminItemPage />,
           },
         ],
       },

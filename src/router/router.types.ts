@@ -26,4 +26,5 @@ export type RoutesType = {
   StoreAdminPage: RouteType;
   AddStoreAdminPage: RouteType;
   EditStoreAdminPage: RouteType;
+  StoreAdminItemPage: RouteType;
 };
