@@ -1,7 +1,7 @@
 export { default as router } from "./router";
 
 // CONFIG
-export { routerConfig } from "./router.config";
+export { routerConfig, StoreRoot } from "./router.config";
 
 // TYPES
 export type { RouteType } from "./router.types";

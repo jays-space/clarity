@@ -6,7 +6,7 @@ export const isUpperCase = (uppercase: boolean) => {
 };
 
 export const getHeadingStyles = (variant: HeadingVariantType) => {
-  const fontFamily = "font-raleway text-primary-500";
+  const fontFamily = "font-cursive text-primary-700";
   const capitalize = "capitalize";
 
   switch (variant) {

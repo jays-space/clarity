@@ -1,23 +1,34 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // CONFIG
-import { routerConfig } from "./router.config";
+import { StoreRoot, routerConfig } from "./router.config";
 
 // ROUTES
 import {
   AccountPage,
+  AddStoreCollectionItemPage,
+  AddStoreCollectionPage,
   CartPage,
   CollectionItemPage,
   CollectionPage,
   CollectionsPage,
   ContactPage,
+  EditStoreCollectionItemPage,
+  EditStoreCollectionPage,
   HomePage,
   PrivacyPolicyPage,
   SignInPage,
   SignUpPage,
+  StoreCollectionItemPage,
+  StoreCollectionPage,
+  StoreCollectionsPage,
+  StoreManagementLayout,
   TermsAndConditionsPage,
 } from "@/pages";
 import { Layout } from "@/components/templates";
+import { AddStoreAdminPage } from "@/pages/storeManagement/admin/new";
+import { EditStoreAdminPage } from "@/pages/storeManagement/admin/edit";
+import { StoreAdminPage } from "@/pages/storeManagement/admin/root";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +77,53 @@ const router = createBrowserRouter([
       {
         path: routerConfig.TermsAndConditionsPage.path,
         element: <TermsAndConditionsPage />,
+      },
+      {
+        path: `${StoreRoot}`,
+        element: <StoreManagementLayout />,
+        children: [
+          {
+            path: `${routerConfig.StoreCollectionsPage.path}`,
+            element: <StoreCollectionsPage />,
+            index: true,
+          },
+          {
+            path: `${routerConfig.StoreCollectionPage.path}`,
+            element: <StoreCollectionPage />,
+          },
+          {
+            path: `${routerConfig.EditStoreCollectionPage.path}`,
+            element: <EditStoreCollectionPage />,
+          },
+          {
+            path: `${routerConfig.AddStoreCollectionPage.path}`,
+            element: <AddStoreCollectionPage />,
+          },
+          {
+            path: `${routerConfig.StoreCollectionItemPage.path}`,
+            element: <StoreCollectionItemPage />,
+          },
+          {
+            path: `${routerConfig.EditStoreCollectionItemPage.path}`,
+            element: <EditStoreCollectionItemPage />,
+          },
+          {
+            path: `${routerConfig.AddStoreCollectionItemPage.path}`,
+            element: <AddStoreCollectionItemPage />,
+          },
+          {
+            path: `${routerConfig.StoreAdminPage.path}`,
+            element: <StoreAdminPage />,
+          },
+          {
+            path: `${routerConfig.EditStoreAdminPage.path}`,
+            element: <EditStoreAdminPage />,
+          },
+          {
+            path: `${routerConfig.AddStoreAdminPage.path}`,
+            element: <AddStoreAdminPage />,
+          },
+        ],
       },
     ],
   },

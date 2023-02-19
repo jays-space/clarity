@@ -13,7 +13,7 @@ interface IPage {
 
 const Page = ({ children, align = "center" }: IPage) => {
   return (
-    <div className={`flex flex-col items-e ${getAlignment(align)}`}>
+    <div className={`w-full flex flex-col items-e ${getAlignment(align)}`}>
       {children}
     </div>
   );

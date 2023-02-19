@@ -1,4 +1,6 @@
-export const collectionTypes = [
+import { CollectionType } from "@/types";
+
+export const collectionTypes: CollectionType[] = [
   {
     id: 1,
     uri: "https://images.unsplash.com/photo-1601045263606-b31b202de911?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
@@ -20,7 +22,7 @@ export const collectionTypes = [
   {
     id: 4,
     uri: "https://images.unsplash.com/photo-1625798241637-eabe7a876fd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-    name: "buttercream",
-    alt: "buttercream cupcakes",
+    name: "lemon",
+    alt: "lemon cupcakes",
   },
 ];
