@@ -15,4 +15,16 @@ export type RoutesType = {
   SignInPage: RouteType;
   SignUpPage: RouteType;
   TermsAndConditionsPage: RouteType;
+  StoreManagementPage: RouteType;
+  StoreCollectionsPage: RouteType;
+  StoreCollectionPage: RouteType;
+  EditStoreCollectionPage: RouteType;
+  AddStoreCollectionPage: RouteType;
+  StoreCollectionItemPage: RouteType;
+  EditStoreCollectionItemPage: RouteType;
+  AddStoreCollectionItemPage: RouteType;
+  StoreAdminPage: RouteType;
+  AddStoreAdminPage: RouteType;
+  EditStoreAdminPage: RouteType;
+  StoreAdminItemPage: RouteType;
 };

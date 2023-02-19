@@ -1,5 +1,7 @@
 import { RoutesType } from "@router";
 
+export const StoreRoot = "/management";
+
 export const routerConfig: RoutesType = {
   HomePage: {
     label: "home",
@@ -25,6 +27,10 @@ export const routerConfig: RoutesType = {
     label: "contact",
     path: "/contact",
   },
+  StoreManagementPage: {
+    label: "manage store",
+    path: "/management",
+  },
   CartPage: {
     label: "cart",
     path: "/cart",
@@ -44,5 +50,49 @@ export const routerConfig: RoutesType = {
   SignUpPage: {
     label: "sign up",
     path: "/sign_up",
+  },
+  StoreCollectionsPage: {
+    label: "see all cupcakes",
+    path: `${StoreRoot}/collections`,
+  },
+  StoreCollectionPage: {
+    label: "StoreCollectionPage",
+    path: `${StoreRoot}/collections/:collectionName`,
+  },
+  EditStoreCollectionPage: {
+    label: "EditStoreCollectionPage",
+    path: `${StoreRoot}/collections/:collectionName/edit`,
+  },
+  AddStoreCollectionPage: {
+    label: "add new collection",
+    path: `${StoreRoot}/new_collection`,
+  },
+  StoreCollectionItemPage: {
+    label: "StoreCollectionItemPage",
+    path: `${StoreRoot}/collections/:collectionName/:productID`,
+  },
+  EditStoreCollectionItemPage: {
+    label: "EditStoreCollectionItemPage",
+    path: `${StoreRoot}/collections/:collectionName/:productID/edit`,
+  },
+  AddStoreCollectionItemPage: {
+    label: "add new cupcake",
+    path: `${StoreRoot}/new_cupcake`,
+  },
+  StoreAdminPage: {
+    label: "see all admins",
+    path: `${StoreRoot}/admins`,
+  },
+  AddStoreAdminPage: {
+    label: "add new admin",
+    path: `${StoreRoot}/admins/new_admin`,
+  },
+  EditStoreAdminPage: {
+    label: "edit admin",
+    path: `${StoreRoot}/admins/:adminID/edit`,
+  },
+  StoreAdminItemPage: {
+    label: "edit admin",
+    path: `${StoreRoot}/admins/:adminID`,
   },
 };
