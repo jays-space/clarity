@@ -1,12 +1,17 @@
 import { RouterProvider } from "react-router-dom";
-import { router } from "@/router";
+
+// CONFIG
+import { ApolloClient } from "@apolloConfig";
 import { CartContextProvider } from "@contexts";
+import { router } from "@/router";
 
 function App() {
   return (
-    <CartContextProvider>
-      <RouterProvider router={router} />
-    </CartContextProvider>
+    <ApolloClient>
+      <CartContextProvider>
+        <RouterProvider router={router} />
+      </CartContextProvider>
+    </ApolloClient>
   );
 }
 
