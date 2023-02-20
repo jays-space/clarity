@@ -164,6 +164,77 @@ export const syncCarts = /* GraphQL */ `
     }
   }
 `;
+export const getCollection = /* GraphQL */ `
+  query GetCollection($id: ID!) {
+    getCollection(id: $id) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listCollections = /* GraphQL */ `
+  query ListCollections(
+    $filter: ModelCollectionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        url
+        nofProducts
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCollections = /* GraphQL */ `
+  query SyncCollections(
+    $filter: ModelCollectionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCollections(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        url
+        nofProducts
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getProducts = /* GraphQL */ `
   query GetProducts($id: ID!) {
     getProducts(id: $id) {
@@ -184,6 +255,7 @@ export const getProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -209,6 +281,7 @@ export const listProducts = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -243,6 +316,7 @@ export const syncProducts = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -279,6 +353,44 @@ export const productsByCreatedBy = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const productsByCollectionID = /* GraphQL */ `
+  query ProductsByCollectionID(
+    $collectionID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProductsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    productsByCollectionID(
+      collectionID: $collectionID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        price
+        units
+        quantity
+        pcs
+        url
+        createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -531,6 +643,7 @@ export const getProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -684,6 +797,7 @@ export const getProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version

@@ -200,6 +200,69 @@ export const onDeleteCart = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCollection = /* GraphQL */ `
+  subscription OnCreateCollection(
+    $filter: ModelSubscriptionCollectionFilterInput
+  ) {
+    onCreateCollection(filter: $filter) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateCollection = /* GraphQL */ `
+  subscription OnUpdateCollection(
+    $filter: ModelSubscriptionCollectionFilterInput
+  ) {
+    onUpdateCollection(filter: $filter) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteCollection = /* GraphQL */ `
+  subscription OnDeleteCollection(
+    $filter: ModelSubscriptionCollectionFilterInput
+  ) {
+    onDeleteCollection(filter: $filter) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateProducts = /* GraphQL */ `
   subscription OnCreateProducts($filter: ModelSubscriptionProductsFilterInput) {
     onCreateProducts(filter: $filter) {
@@ -220,6 +283,7 @@ export const onCreateProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -248,6 +312,7 @@ export const onUpdateProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -276,6 +341,7 @@ export const onDeleteProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -506,6 +572,7 @@ export const onCreateProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -547,6 +614,7 @@ export const onUpdateProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -588,6 +656,7 @@ export const onDeleteProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -629,6 +698,7 @@ export const onCreateProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -670,6 +740,7 @@ export const onUpdateProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -711,6 +782,7 @@ export const onDeleteProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version

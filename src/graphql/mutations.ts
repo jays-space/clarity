@@ -218,6 +218,72 @@ export const deleteCart = /* GraphQL */ `
     }
   }
 `;
+export const createCollection = /* GraphQL */ `
+  mutation CreateCollection(
+    $input: CreateCollectionInput!
+    $condition: ModelCollectionConditionInput
+  ) {
+    createCollection(input: $input, condition: $condition) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateCollection = /* GraphQL */ `
+  mutation UpdateCollection(
+    $input: UpdateCollectionInput!
+    $condition: ModelCollectionConditionInput
+  ) {
+    updateCollection(input: $input, condition: $condition) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteCollection = /* GraphQL */ `
+  mutation DeleteCollection(
+    $input: DeleteCollectionInput!
+    $condition: ModelCollectionConditionInput
+  ) {
+    deleteCollection(input: $input, condition: $condition) {
+      id
+      name
+      url
+      nofProducts
+      Products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createProducts = /* GraphQL */ `
   mutation CreateProducts(
     $input: CreateProductsInput!
@@ -241,6 +307,7 @@ export const createProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -272,6 +339,7 @@ export const updateProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -303,6 +371,7 @@ export const deleteProducts = /* GraphQL */ `
         startedAt
       }
       createdBy
+      collectionID
       createdAt
       updatedAt
       _version
@@ -552,6 +621,7 @@ export const createProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -594,6 +664,7 @@ export const updateProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -636,6 +707,7 @@ export const deleteProductsWishlist = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -678,6 +750,7 @@ export const createProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -720,6 +793,7 @@ export const updateProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version
@@ -762,6 +836,7 @@ export const deleteProductsCart = /* GraphQL */ `
         pcs
         url
         createdBy
+        collectionID
         createdAt
         updatedAt
         _version

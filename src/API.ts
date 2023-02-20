@@ -180,6 +180,7 @@ export type Products = {
   Carts?: ModelProductsCartConnection | null,
   Wishlists?: ModelProductsWishlistConnection | null,
   createdBy: string,
+  collectionID: string,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -243,31 +244,21 @@ export type DeleteCartInput = {
   _version?: number | null,
 };
 
-export type CreateProductsInput = {
+export type CreateCollectionInput = {
   id?: string | null,
   name: string,
-  description?: string | null,
-  price: number,
-  units: number,
-  quantity: number,
-  pcs: number,
-  url?: Array< string | null > | null,
-  createdBy: string,
+  url: string,
+  nofProducts: number,
   _version?: number | null,
 };
 
-export type ModelProductsConditionInput = {
+export type ModelCollectionConditionInput = {
   name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  price?: ModelFloatInput | null,
-  units?: ModelIntInput | null,
-  quantity?: ModelIntInput | null,
-  pcs?: ModelIntInput | null,
   url?: ModelStringInput | null,
-  createdBy?: ModelIDInput | null,
-  and?: Array< ModelProductsConditionInput | null > | null,
-  or?: Array< ModelProductsConditionInput | null > | null,
-  not?: ModelProductsConditionInput | null,
+  nofProducts?: ModelIntInput | null,
+  and?: Array< ModelCollectionConditionInput | null > | null,
+  or?: Array< ModelCollectionConditionInput | null > | null,
+  not?: ModelCollectionConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -286,7 +277,7 @@ export type ModelStringInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelFloatInput = {
+export type ModelIntInput = {
   ne?: number | null,
   eq?: number | null,
   le?: number | null,
@@ -298,7 +289,70 @@ export type ModelFloatInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type ModelIntInput = {
+export type Collection = {
+  __typename: "Collection",
+  id: string,
+  name: string,
+  url: string,
+  nofProducts: number,
+  Products?: ModelProductsConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type ModelProductsConnection = {
+  __typename: "ModelProductsConnection",
+  items:  Array<Products | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type UpdateCollectionInput = {
+  id: string,
+  name?: string | null,
+  url?: string | null,
+  nofProducts?: number | null,
+  _version?: number | null,
+};
+
+export type DeleteCollectionInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateProductsInput = {
+  id?: string | null,
+  name: string,
+  description?: string | null,
+  price: number,
+  units: number,
+  quantity: number,
+  pcs: number,
+  url?: Array< string | null > | null,
+  createdBy: string,
+  collectionID: string,
+  _version?: number | null,
+};
+
+export type ModelProductsConditionInput = {
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  units?: ModelIntInput | null,
+  quantity?: ModelIntInput | null,
+  pcs?: ModelIntInput | null,
+  url?: ModelStringInput | null,
+  createdBy?: ModelIDInput | null,
+  collectionID?: ModelIDInput | null,
+  and?: Array< ModelProductsConditionInput | null > | null,
+  or?: Array< ModelProductsConditionInput | null > | null,
+  not?: ModelProductsConditionInput | null,
+};
+
+export type ModelFloatInput = {
   ne?: number | null,
   eq?: number | null,
   le?: number | null,
@@ -320,6 +374,7 @@ export type UpdateProductsInput = {
   pcs?: number | null,
   url?: Array< string | null > | null,
   createdBy?: string | null,
+  collectionID?: string | null,
   _version?: number | null,
 };
 
@@ -520,6 +575,23 @@ export type ModelCartConnection = {
   startedAt?: number | null,
 };
 
+export type ModelCollectionFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  nofProducts?: ModelIntInput | null,
+  and?: Array< ModelCollectionFilterInput | null > | null,
+  or?: Array< ModelCollectionFilterInput | null > | null,
+  not?: ModelCollectionFilterInput | null,
+};
+
+export type ModelCollectionConnection = {
+  __typename: "ModelCollectionConnection",
+  items:  Array<Collection | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
 export type ModelProductsFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -530,16 +602,10 @@ export type ModelProductsFilterInput = {
   pcs?: ModelIntInput | null,
   url?: ModelStringInput | null,
   createdBy?: ModelIDInput | null,
+  collectionID?: ModelIDInput | null,
   and?: Array< ModelProductsFilterInput | null > | null,
   or?: Array< ModelProductsFilterInput | null > | null,
   not?: ModelProductsFilterInput | null,
-};
-
-export type ModelProductsConnection = {
-  __typename: "ModelProductsConnection",
-  items:  Array<Products | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export enum ModelSortDirection {
@@ -627,18 +693,13 @@ export type ModelSubscriptionCartFilterInput = {
   or?: Array< ModelSubscriptionCartFilterInput | null > | null,
 };
 
-export type ModelSubscriptionProductsFilterInput = {
+export type ModelSubscriptionCollectionFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  price?: ModelSubscriptionFloatInput | null,
-  units?: ModelSubscriptionIntInput | null,
-  quantity?: ModelSubscriptionIntInput | null,
-  pcs?: ModelSubscriptionIntInput | null,
   url?: ModelSubscriptionStringInput | null,
-  createdBy?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionProductsFilterInput | null > | null,
-  or?: Array< ModelSubscriptionProductsFilterInput | null > | null,
+  nofProducts?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionCollectionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCollectionFilterInput | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -656,7 +717,7 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionFloatInput = {
+export type ModelSubscriptionIntInput = {
   ne?: number | null,
   eq?: number | null,
   le?: number | null,
@@ -668,7 +729,22 @@ export type ModelSubscriptionFloatInput = {
   notIn?: Array< number | null > | null,
 };
 
-export type ModelSubscriptionIntInput = {
+export type ModelSubscriptionProductsFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  price?: ModelSubscriptionFloatInput | null,
+  units?: ModelSubscriptionIntInput | null,
+  quantity?: ModelSubscriptionIntInput | null,
+  pcs?: ModelSubscriptionIntInput | null,
+  url?: ModelSubscriptionStringInput | null,
+  createdBy?: ModelSubscriptionIDInput | null,
+  collectionID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionProductsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProductsFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFloatInput = {
   ne?: number | null,
   eq?: number | null,
   le?: number | null,
@@ -964,6 +1040,81 @@ export type DeleteCartMutation = {
   } | null,
 };
 
+export type CreateCollectionMutationVariables = {
+  input: CreateCollectionInput,
+  condition?: ModelCollectionConditionInput | null,
+};
+
+export type CreateCollectionMutation = {
+  createCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateCollectionMutationVariables = {
+  input: UpdateCollectionInput,
+  condition?: ModelCollectionConditionInput | null,
+};
+
+export type UpdateCollectionMutation = {
+  updateCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteCollectionMutationVariables = {
+  input: DeleteCollectionInput,
+  condition?: ModelCollectionConditionInput | null,
+};
+
+export type DeleteCollectionMutation = {
+  deleteCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type CreateProductsMutationVariables = {
   input: CreateProductsInput,
   condition?: ModelProductsConditionInput | null,
@@ -991,6 +1142,7 @@ export type CreateProductsMutation = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1026,6 +1178,7 @@ export type UpdateProductsMutation = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1061,6 +1214,7 @@ export type DeleteProductsMutation = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1338,6 +1492,7 @@ export type CreateProductsWishlistMutation = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1384,6 +1539,7 @@ export type UpdateProductsWishlistMutation = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1430,6 +1586,7 @@ export type DeleteProductsWishlistMutation = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1476,6 +1633,7 @@ export type CreateProductsCartMutation = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1522,6 +1680,7 @@ export type UpdateProductsCartMutation = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1568,6 +1727,7 @@ export type DeleteProductsCartMutation = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1758,6 +1918,83 @@ export type SyncCartsQuery = {
   } | null,
 };
 
+export type GetCollectionQueryVariables = {
+  id: string,
+};
+
+export type GetCollectionQuery = {
+  getCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListCollectionsQueryVariables = {
+  filter?: ModelCollectionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCollectionsQuery = {
+  listCollections?:  {
+    __typename: "ModelCollectionConnection",
+    items:  Array< {
+      __typename: "Collection",
+      id: string,
+      name: string,
+      url: string,
+      nofProducts: number,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCollectionsQueryVariables = {
+  filter?: ModelCollectionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCollectionsQuery = {
+  syncCollections?:  {
+    __typename: "ModelCollectionConnection",
+    items:  Array< {
+      __typename: "Collection",
+      id: string,
+      name: string,
+      url: string,
+      nofProducts: number,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetProductsQueryVariables = {
   id: string,
 };
@@ -1784,6 +2021,7 @@ export type GetProductsQuery = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1812,6 +2050,7 @@ export type ListProductsQuery = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1844,6 +2083,7 @@ export type SyncProductsQuery = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1877,6 +2117,41 @@ export type ProductsByCreatedByQuery = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type ProductsByCollectionIDQueryVariables = {
+  collectionID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelProductsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ProductsByCollectionIDQuery = {
+  productsByCollectionID?:  {
+    __typename: "ModelProductsConnection",
+    items:  Array< {
+      __typename: "Products",
+      id: string,
+      name: string,
+      description?: string | null,
+      price: number,
+      units: number,
+      quantity: number,
+      pcs: number,
+      url?: Array< string | null > | null,
+      createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2146,6 +2421,7 @@ export type GetProductsWishlistQuery = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2296,6 +2572,7 @@ export type GetProductsCartQuery = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2649,6 +2926,78 @@ export type OnDeleteCartSubscription = {
   } | null,
 };
 
+export type OnCreateCollectionSubscriptionVariables = {
+  filter?: ModelSubscriptionCollectionFilterInput | null,
+};
+
+export type OnCreateCollectionSubscription = {
+  onCreateCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateCollectionSubscriptionVariables = {
+  filter?: ModelSubscriptionCollectionFilterInput | null,
+};
+
+export type OnUpdateCollectionSubscription = {
+  onUpdateCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteCollectionSubscriptionVariables = {
+  filter?: ModelSubscriptionCollectionFilterInput | null,
+};
+
+export type OnDeleteCollectionSubscription = {
+  onDeleteCollection?:  {
+    __typename: "Collection",
+    id: string,
+    name: string,
+    url: string,
+    nofProducts: number,
+    Products?:  {
+      __typename: "ModelProductsConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateProductsSubscriptionVariables = {
   filter?: ModelSubscriptionProductsFilterInput | null,
 };
@@ -2675,6 +3024,7 @@ export type OnCreateProductsSubscription = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2709,6 +3059,7 @@ export type OnUpdateProductsSubscription = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2743,6 +3094,7 @@ export type OnDeleteProductsSubscription = {
       startedAt?: number | null,
     } | null,
     createdBy: string,
+    collectionID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3013,6 +3365,7 @@ export type OnCreateProductsWishlistSubscription = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -3058,6 +3411,7 @@ export type OnUpdateProductsWishlistSubscription = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -3103,6 +3457,7 @@ export type OnDeleteProductsWishlistSubscription = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -3148,6 +3503,7 @@ export type OnCreateProductsCartSubscription = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -3193,6 +3549,7 @@ export type OnUpdateProductsCartSubscription = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -3238,6 +3595,7 @@ export type OnDeleteProductsCartSubscription = {
       pcs: number,
       url?: Array< string | null > | null,
       createdBy: string,
+      collectionID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,

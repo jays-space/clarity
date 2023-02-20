@@ -10,6 +10,14 @@ type Cart @model @auth(rules: [{ allow: public }]) {
   User: User @belongsTo
 }
 
+type Collection @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  url: String!
+  nofProducts: Int!
+  Products: [Products] @hasMany(indexName: "byCollection", fields: ["id"])
+}
+
 type Products @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
@@ -22,6 +30,7 @@ type Products @model @auth(rules: [{ allow: public }]) {
   Carts: [Cart] @manyToMany(relationName: "ProductsCart")
   Wishlists: [Wishlist] @manyToMany(relationName: "ProductsWishlist")
   createdBy: ID! @index(name: "byUser")
+  collectionID: ID! @index(name: "byCollection")
 }
 
 type Coords {
@@ -46,7 +55,7 @@ type Child @model @auth(rules: [{ allow: public }]) {
   id: ID!
   firstName: String!
   lastName: String
-  dob: AWSDateTime!
+  dob: AWSDate!
   gender: Gender!
   parentID: ID! @index(name: "byUser")
 }
