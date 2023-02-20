@@ -29,7 +29,6 @@ type Products @model @auth(rules: [{ allow: public }]) {
   url: [String]
   Carts: [Cart] @manyToMany(relationName: "ProductsCart")
   Wishlists: [Wishlist] @manyToMany(relationName: "ProductsWishlist")
-  createdBy: ID! @index(name: "byUser")
   collectionID: ID! @index(name: "byCollection")
 }
 

@@ -254,7 +254,6 @@ export const getProducts = /* GraphQL */ `
         nextToken
         startedAt
       }
-      createdBy
       collectionID
       createdAt
       updatedAt
@@ -280,7 +279,6 @@ export const listProducts = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -315,44 +313,6 @@ export const syncProducts = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
-        collectionID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const productsByCreatedBy = /* GraphQL */ `
-  query ProductsByCreatedBy(
-    $createdBy: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelProductsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    productsByCreatedBy(
-      createdBy: $createdBy
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        description
-        price
-        units
-        quantity
-        pcs
-        url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -389,7 +349,6 @@ export const productsByCollectionID = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -642,7 +601,6 @@ export const getProductsWishlist = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -796,7 +754,6 @@ export const getProductsCart = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt

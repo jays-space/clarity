@@ -539,13 +539,6 @@ export const schema = {
                         ]
                     }
                 },
-                "createdBy": {
-                    "name": "createdBy",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "collectionID": {
                     "name": "collectionID",
                     "isArray": false,
@@ -576,15 +569,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byUser",
-                        "fields": [
-                            "createdBy"
-                        ]
-                    }
                 },
                 {
                     "type": "key",
@@ -972,5 +956,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.3.5",
-    "version": "c7000fafb153038ed935bf4f4edefda1"
+    "version": "7408a873d3fd793a7279075e2f273457"
 };

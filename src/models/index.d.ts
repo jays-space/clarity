@@ -206,7 +206,6 @@ type EagerProducts = {
   readonly url?: (string | null)[] | null;
   readonly Carts?: (ProductsCart | null)[] | null;
   readonly Wishlists?: (ProductsWishlist | null)[] | null;
-  readonly createdBy: string;
   readonly collectionID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -227,7 +226,6 @@ type LazyProducts = {
   readonly url?: (string | null)[] | null;
   readonly Carts: AsyncCollection<ProductsCart>;
   readonly Wishlists: AsyncCollection<ProductsWishlist>;
-  readonly createdBy: string;
   readonly collectionID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

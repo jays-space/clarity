@@ -282,7 +282,6 @@ export const onCreateProducts = /* GraphQL */ `
         nextToken
         startedAt
       }
-      createdBy
       collectionID
       createdAt
       updatedAt
@@ -311,7 +310,6 @@ export const onUpdateProducts = /* GraphQL */ `
         nextToken
         startedAt
       }
-      createdBy
       collectionID
       createdAt
       updatedAt
@@ -340,7 +338,6 @@ export const onDeleteProducts = /* GraphQL */ `
         nextToken
         startedAt
       }
-      createdBy
       collectionID
       createdAt
       updatedAt
@@ -571,7 +568,6 @@ export const onCreateProductsWishlist = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -613,7 +609,6 @@ export const onUpdateProductsWishlist = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -655,7 +650,6 @@ export const onDeleteProductsWishlist = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -697,7 +691,6 @@ export const onCreateProductsCart = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -739,7 +732,6 @@ export const onUpdateProductsCart = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
@@ -781,7 +773,6 @@ export const onDeleteProductsCart = /* GraphQL */ `
         quantity
         pcs
         url
-        createdBy
         collectionID
         createdAt
         updatedAt
