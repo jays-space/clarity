@@ -1,6 +1,6 @@
 import { CollectionType } from "@/types";
 
-export const collectionTypes: CollectionType[] = [
+export const collectionTypes = [
   {
     id: 1,
     uri: "https://images.unsplash.com/photo-1601045263606-b31b202de911?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",

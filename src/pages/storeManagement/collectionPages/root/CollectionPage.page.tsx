@@ -1,22 +1,29 @@
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
 // TYPES
-import { CollectionType } from "@/types";
+import { CollectionType } from "@types";
+
+// GQL
+import { listProducts } from "../../gql/queries.gql";
+import { ListProductsQuery, ListProductsQueryVariables } from "@/API";
 
 // COMPONENTS
 import { Image, Page } from "@/components/atomic";
-import { Button } from "@/components/integrated";
+import { APIErrorMessage, Button } from "@/components/integrated";
 import { Heading } from "@typography";
-
-import { collectionTypes } from "@/mock/CollectionsPage.mock";
+import { ActivityIndicator } from "@components/atomic";
 
 const StoreCollectionPage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  
+  const { data, loading, error, refetch } = useQuery<
+    ListProductsQuery,
+    ListProductsQueryVariables
+  >(listProducts);
 
   const columns = useMemo<MRT_ColumnDef<CollectionType>[]>(
     () => [
@@ -25,7 +32,7 @@ const StoreCollectionPage = () => {
         header: "Collection Name",
       },
       {
-        accessorKey: "uri",
+        accessorKey: "url",
         header: "",
         columns: [
           {
@@ -33,8 +40,8 @@ const StoreCollectionPage = () => {
             header: "Image",
             Cell: ({ row }) => (
               <Image
-                alt={row.original.alt}
-                src={row.original.uri}
+                alt={row.original?.name || ""}
+                src={row.original?.url || ""}
                 className={`w-12 aspect-square rounded-xl`}
               />
             ),
@@ -42,7 +49,7 @@ const StoreCollectionPage = () => {
         ],
       },
       {
-        accessorKey: "alt",
+        accessorKey: "name",
         header: "# Cupcakes",
       },
       {
@@ -54,7 +61,7 @@ const StoreCollectionPage = () => {
             header: "",
             Cell: ({ row }) => (
               <Button
-                onClick={() => navigate(`${row.original.name}/edit`)}
+                onClick={() => navigate(`${row.original?.name || ""}/edit`)}
                 label="edit"
               />
             ),
@@ -64,7 +71,7 @@ const StoreCollectionPage = () => {
             header: "",
             Cell: ({ row }) => (
               <Button
-                onClick={() => navigate(row.original.name)}
+                onClick={() => navigate(row.original?.name || "")}
                 label="view"
               />
             ),
@@ -75,11 +82,38 @@ const StoreCollectionPage = () => {
     [navigate]
   );
 
+  const cupcakes = data?.listProducts?.items.filter(
+    (product) => !product?._deleted
+  );
 
   return (
     <Page>
-      <Heading title={`${params?.collectionName || "Cupcake"} Collection`} variant="h2" className={`mt-4`} />
-      <MaterialReactTable columns={columns} data={collectionTypes} />
+      <Heading
+        title={`${params?.collectionName || "Cupcake"} Collection`}
+        variant="h2"
+        className={`my-4`}
+      />
+      <Button
+        label="refetch"
+        onClick={() => refetch()}
+        loading={loading}
+        success={cupcakes && cupcakes?.length > 0}
+        className={`mb-6`}
+      />
+
+      {loading && <ActivityIndicator />}
+      {error && (
+        <APIErrorMessage
+          title={error.name}
+          message={error.message}
+          onRetry={() => refetch()}
+        />
+      )}
+      {cupcakes && (
+        //FIXME: types
+        // @ts-ignore
+        <MaterialReactTable columns={columns} data={cupcakes || []} />
+      )}
     </Page>
   );
 };

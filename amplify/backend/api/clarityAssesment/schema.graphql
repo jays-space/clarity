@@ -1,13 +1,58 @@
-type Wishlist @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  User: User @belongsTo
-  Products: [Products] @manyToMany(relationName: "ProductsWishlist")
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+enum Gender {
+  FEMALE
+  MALE
 }
 
-type Cart @model @auth(rules: [{ allow: public }]) {
+type Child @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Products: [Products] @manyToMany(relationName: "ProductsCart")
-  User: User @belongsTo
+  firstName: String!
+  lastName: String
+  dob: AWSDate
+  gender: Gender!
+  userID: ID! @index(name: "byUser")
+}
+
+type Coords {
+  lat: Float
+  lng: Float
+}
+
+type Address {
+  city: String
+  country: String
+  fullAddress: String!
+  coords: Coords
+  province: String
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String
+  email: AWSEmail!
+  hasChildren: Boolean!
+  physicalAddress: Address
+  isAdmin: Boolean!
+  Children: [Child] @hasMany(indexName: "byUser", fields: ["id"])
+  Cart: Cart @hasOne
+  dob: AWSDate
+}
+
+type Product @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  units: Int!
+  pcs: Int!
+  url: String!
+  Collection: Collection @belongsTo
+  Carts: [Cart] @manyToMany(relationName: "ProductsCart")
+  collectionID: ID! @index(name: "byCollection")
 }
 
 type Collection @model @auth(rules: [{allow: public}]) {
@@ -15,60 +60,11 @@ type Collection @model @auth(rules: [{allow: public}]) {
   name: String!
   url: String!
   nofProducts: Int!
-  Products: [Products] @hasMany(indexName: "byCollection", fields: ["id"])
+  Products: [Product] @hasMany(indexName: "byCollection", fields: ["id"])
 }
 
-type Products @model @auth(rules: [{ allow: public }]) {
+type Cart @model @auth(rules: [{allow: public}]) {
   id: ID!
-  name: String!
-  description: String
-  price: Float!
-  units: Int!
-  quantity: Int!
-  pcs: Int!
-  url: [String]
-  Carts: [Cart] @manyToMany(relationName: "ProductsCart")
-  Wishlists: [Wishlist] @manyToMany(relationName: "ProductsWishlist")
-  collectionID: ID! @index(name: "byCollection")
-}
-
-type Coords {
-  lat: Float!
-  lng: Float!
-}
-
-type Address {
-  city: String
-  country: String
-  fullAddress: String!
-  coords: Coords!
-  province: String
-}
-
-enum Gender {
-  FEMALE
-  MALE
-}
-
-type Child @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  firstName: String!
-  lastName: String
-  dob: AWSDate!
-  gender: Gender!
-  parentID: ID! @index(name: "byUser")
-}
-
-type User @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  firstName: String!
-  lastName: String
-  email: AWSEmail!
-  dob: AWSDate
-  hasChildren: Boolean!
-  Children: [Child] @hasMany(indexName: "byUser", fields: ["id"])
-  physicalAddress: Address
-  Cart: Cart @hasOne
-  Wishlist: Wishlist @hasOne
-  isAdmin: Boolean!
+  Products: [Product] @manyToMany(relationName: "ProductsCart")
+  User: User @belongsTo
 }

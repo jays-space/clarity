@@ -1,36 +1,29 @@
+import { useQuery } from "@apollo/client";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+// TYPES
+import { AdminUserType } from "@/types";
+
+// GQL
+import { listAdminUsers } from "../../gql/queries.gql";
+import { ListUsersQuery, ListUsersQueryVariables } from "@/API";
 
 // COMPONENTS
-import { Page } from "@/components/atomic";
+import { ActivityIndicator, Page } from "@/components/atomic";
 import { Heading } from "@typography";
-import { Button } from "@/components/integrated";
+import { APIErrorMessage, Button } from "@/components/integrated";
 
 const StoreAdminPage = () => {
   const navigate = useNavigate();
-  const params = useParams();
 
-  type AdminType = {
-    id: string;
-    firstName: string;
-    lastName: string;
-  };
+  const { data, loading, error, refetch } = useQuery<
+    ListUsersQuery,
+    ListUsersQueryVariables
+  >(listAdminUsers);
 
-  const admins:AdminType[] = [
-    {
-      firstName: "jay",
-      id:'123456',
-      lastName:'mondlana'
-    },
-    {
-      firstName: "joy",
-      id:'654321',
-      lastName:'mondlana'
-    }
-  ]
-
-  const columns = useMemo<MRT_ColumnDef<AdminType>[]>(
+  const columns = useMemo<MRT_ColumnDef<AdminUserType>[]>(
     () => [
       {
         accessorKey: "id",
@@ -62,10 +55,7 @@ const StoreAdminPage = () => {
             id: "id",
             header: "",
             Cell: ({ row }) => (
-              <Button
-                onClick={() => navigate(row.original.id)}
-                label="view"
-              />
+              <Button onClick={() => navigate(row.original.id)} label="view" />
             ),
           },
         ],
@@ -74,10 +64,26 @@ const StoreAdminPage = () => {
     [navigate]
   );
 
+  const admins = data?.listUsers?.items.filter(
+    (admin) => admin?.isAdmin && !admin._deleted
+  );
+
   return (
     <Page>
-      <Heading title="Store Admins" variant="h2" className={`mt-12`} />
-      <MaterialReactTable columns={columns} data={admins} />
+      <Heading title="Store Admins" variant="h2" className={`mt-4 mb-6`} />
+      {loading && <ActivityIndicator />}
+      {error && (
+        <APIErrorMessage
+          title={error.name}
+          message={error.message}
+          onRetry={() => refetch()}
+        />
+      )}
+      {admins && (
+        //FIXME: types
+        // @ts-ignore
+        <MaterialReactTable columns={columns} data={admins || []} />
+      )}
     </Page>
   );
 };

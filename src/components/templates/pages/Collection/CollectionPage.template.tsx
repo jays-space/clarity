@@ -3,17 +3,18 @@ import { useNavigate, useParams } from "react-router-dom";
 // COMPONENTS
 import { CollectionItemSelector } from "@/components/integrated";
 import { Heading } from "@/components/atomic/typography";
+import { CollectionType } from "@types";
+import { CupcakeType } from "@/types/Product.Types";
 
 interface ICollectionPageTemplate {
-  collection: {
-    id: number;
-    src: string;
-    name: string;
-    price: number;
-  }[];
+  collection: CollectionType;
+  products: CupcakeType[];
 }
 
-const CollectionTemplate = ({ collection }: ICollectionPageTemplate) => {
+const CollectionTemplate = ({
+  collection,
+  products,
+}: ICollectionPageTemplate) => {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -34,22 +35,24 @@ const CollectionTemplate = ({ collection }: ICollectionPageTemplate) => {
         />
       </div>
 
-      <div
-        className={`flex flex-row justify-center items-center flex-wrap gap-6`}
-      >
-        {collection.map(({ id, name, price, src }) => {
-          return (
-            <CollectionItemSelector
-              key={id}
-              name={name}
-              price={price}
-              src={src}
-              onAddToBagClick={() => {}}
-              onViewCupcakeClick={() => onCollectionItemSelect(id.toString())}
-            />
-          );
-        })}
-      </div>
+      {
+        <div
+          className={`flex flex-row justify-center items-center flex-wrap gap-6`}
+        >
+          {products.map(({ id, name, url, price }) => {
+            return (
+              <CollectionItemSelector
+                key={id}
+                name={name}
+                price={price}
+                src={url}
+                onAddToBagClick={() => {}}
+                onViewCupcakeClick={() => onCollectionItemSelect(id.toString())}
+              />
+            );
+          })}
+        </div>
+      }
     </>
   );
 };

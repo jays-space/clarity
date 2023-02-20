@@ -201,9 +201,8 @@ type EagerProducts = {
   readonly description?: string | null;
   readonly price: number;
   readonly units: number;
-  readonly quantity: number;
   readonly pcs: number;
-  readonly url?: (string | null)[] | null;
+  readonly url: string;
   readonly Carts?: (ProductsCart | null)[] | null;
   readonly Wishlists?: (ProductsWishlist | null)[] | null;
   readonly collectionID: string;
@@ -221,9 +220,8 @@ type LazyProducts = {
   readonly description?: string | null;
   readonly price: number;
   readonly units: number;
-  readonly quantity: number;
   readonly pcs: number;
-  readonly url?: (string | null)[] | null;
+  readonly url: string;
   readonly Carts: AsyncCollection<ProductsCart>;
   readonly Wishlists: AsyncCollection<ProductsWishlist>;
   readonly collectionID: string;

@@ -1,4 +1,5 @@
-import { BsBag, BsSearch } from "react-icons/bs";
+import { BsBag, BsSearch, BsHandThumbsUp } from "react-icons/bs";
+import { AiOutlineLoading, AiOutlineWarning } from "react-icons/ai";
 
 // TYPES
 import { IconColorType, IconNames } from "./iconNames.types";
@@ -10,6 +11,7 @@ interface IIcon {
   name: IconNames;
   size?: number;
   color?: IconColorType;
+  className?: string;
   testID?: string;
 }
 
@@ -17,6 +19,7 @@ const Icon = ({
   name,
   size = 18,
   color = "dark",
+  className = "",
   testID = "",
 }: IIcon) => {
   switch (name) {
@@ -25,6 +28,7 @@ const Icon = ({
         <BsBag
           size={size}
           color={getIconColor(color)}
+          className={className}
           data-testid={testID}
         />
       );
@@ -35,6 +39,40 @@ const Icon = ({
         <BsSearch
           size={size}
           color={getIconColor(color)}
+          className={className}
+          data-testid={testID}
+        />
+      );
+    }
+
+    case IconNames.success: {
+      return (
+        <BsHandThumbsUp
+          size={size}
+          color={getIconColor(color)}
+          className={className}
+          data-testid={testID}
+        />
+      );
+    }
+
+    case IconNames.loading: {
+      return (
+        <AiOutlineLoading
+          size={size}
+          color={getIconColor(color)}
+          className={className}
+          data-testid={testID}
+        />
+      );
+    }
+
+    case IconNames.apiError: {
+      return (
+        <AiOutlineWarning
+          size={size}
+          color={getIconColor(color)}
+          className={className}
           data-testid={testID}
         />
       );

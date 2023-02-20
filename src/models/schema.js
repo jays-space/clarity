@@ -485,13 +485,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "quantity": {
-                    "name": "quantity",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "pcs": {
                     "name": "pcs",
                     "isArray": false,
@@ -501,11 +494,10 @@ export const schema = {
                 },
                 "url": {
                     "name": "url",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "Carts": {
                     "name": "Carts",
@@ -956,5 +948,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.3.5",
-    "version": "7408a873d3fd793a7279075e2f273457"
+    "version": "1c482e291a570c2a9a920520d3ffccc7"
 };
