@@ -1,21 +1,31 @@
-import { Control, UseFormHandleSubmit } from "react-hook-form";
+import { Control, UseFormHandleSubmit, UseFormSetValue } from "react-hook-form";
 
 // TYPES
 import { AddCupcakeFormType } from "@/pages/storeManagement/collectionItemPages/new/AddStoreCollectionItemPage.types";
 
 import { TextInput } from "@/components/atomic";
 import { Button } from "@/components/integrated";
+import { CollectionType } from "@/types";
+import { Text } from "@/components/atomic/typography";
 
 interface ITextInput {
   control: Control<AddCupcakeFormType, any>;
   onAddCupcakeFormSubmit: (formData: AddCupcakeFormType) => void;
   handleSubmit: UseFormHandleSubmit<AddCupcakeFormType>;
+  loading: boolean;
+  success: boolean;
+  collections: CollectionType[];
+  setValue: UseFormSetValue<AddCupcakeFormType>;
 }
 
 const AddStoreCollectionItemFormTemplate = ({
   control,
   handleSubmit,
   onAddCupcakeFormSubmit,
+  loading,
+  success,
+  collections,
+  setValue,
 }: ITextInput) => {
   return (
     <>
@@ -53,6 +63,7 @@ const AddStoreCollectionItemFormTemplate = ({
             name="price"
             control={control}
             label="price"
+            variant="number"
             required
             rules={{
               required: "How much does a service cost? (In ZAR)",
@@ -64,7 +75,30 @@ const AddStoreCollectionItemFormTemplate = ({
         </div>
         <div className={`flex-1 px-4`}>
           {/* cupcake collection type */}
-          
+          <div>
+            <label
+              htmlFor={`select-collections`}
+              className={`flex flex-row mb-1`}
+            >
+              <Text copy={"Collections"} size="sm" capitalize />
+              <Text copy={"(required)"} size="sm" capitalize className="ml-1" />
+            </label>
+            <select
+              className={`w-full mb-6 outline-2 border-2 text-text outline-primary-800 border-primary-200
+            rounded-md font-raleway tracking-wide transition-all duration-300 self-stretch`}
+              onChange={(e) => {
+                setValue("collection", e.target.value);
+              }}
+            >
+              <option value={""}></option>
+              {collections.map((collection) => (
+                <option value={collection.id} className="text-text capitalize">
+                  {collection.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* cupcake description */}
           <TextInput
             textArea
@@ -108,7 +142,12 @@ const AddStoreCollectionItemFormTemplate = ({
           />
         </div>
       </div>
-      <Button label="submit" onClick={handleSubmit(onAddCupcakeFormSubmit)} />
+      <Button
+        label="submit"
+        loading={loading}
+        success={success}
+        onClick={handleSubmit(onAddCupcakeFormSubmit)}
+      />
     </>
   );
 };

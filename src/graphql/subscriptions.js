@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
@@ -13,9 +12,6 @@ export const onCreateChild = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -30,9 +26,6 @@ export const onUpdateChild = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -47,9 +40,6 @@ export const onDeleteChild = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -65,28 +55,50 @@ export const onCreateUser = /* GraphQL */ `
         city
         country
         fullAddress
+        coords {
+          lat
+          lng
+        }
         province
       }
       isAdmin
       Children {
+        items {
+          id
+          firstName
+          lastName
+          dob
+          gender
+          userID
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       Cart {
         id
+        Products {
+          nextToken
+        }
+        User {
+          id
+          firstName
+          lastName
+          email
+          hasChildren
+          isAdmin
+          dob
+          createdAt
+          updatedAt
+          userCartId
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         cartUserId
       }
       dob
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       userCartId
     }
   }
@@ -103,28 +115,50 @@ export const onUpdateUser = /* GraphQL */ `
         city
         country
         fullAddress
+        coords {
+          lat
+          lng
+        }
         province
       }
       isAdmin
       Children {
+        items {
+          id
+          firstName
+          lastName
+          dob
+          gender
+          userID
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       Cart {
         id
+        Products {
+          nextToken
+        }
+        User {
+          id
+          firstName
+          lastName
+          email
+          hasChildren
+          isAdmin
+          dob
+          createdAt
+          updatedAt
+          userCartId
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         cartUserId
       }
       dob
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       userCartId
     }
   }
@@ -141,28 +175,50 @@ export const onDeleteUser = /* GraphQL */ `
         city
         country
         fullAddress
+        coords {
+          lat
+          lng
+        }
         province
       }
       isAdmin
       Children {
+        items {
+          id
+          firstName
+          lastName
+          dob
+          gender
+          userID
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       Cart {
         id
+        Products {
+          nextToken
+        }
+        User {
+          id
+          firstName
+          lastName
+          email
+          hasChildren
+          isAdmin
+          dob
+          createdAt
+          updatedAt
+          userCartId
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         cartUserId
       }
       dob
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       userCartId
     }
   }
@@ -182,22 +238,25 @@ export const onCreateProduct = /* GraphQL */ `
         name
         url
         nofProducts
+        Products {
+          nextToken
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       Carts {
+        items {
+          id
+          productId
+          cartId
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       collectionID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -216,22 +275,25 @@ export const onUpdateProduct = /* GraphQL */ `
         name
         url
         nofProducts
+        Products {
+          nextToken
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       Carts {
+        items {
+          id
+          productId
+          cartId
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       collectionID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -250,22 +312,25 @@ export const onDeleteProduct = /* GraphQL */ `
         name
         url
         nofProducts
+        Products {
+          nextToken
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       Carts {
+        items {
+          id
+          productId
+          cartId
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       collectionID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -279,14 +344,22 @@ export const onCreateCollection = /* GraphQL */ `
       url
       nofProducts
       Products {
+        items {
+          id
+          name
+          description
+          price
+          units
+          pcs
+          url
+          collectionID
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -300,14 +373,22 @@ export const onUpdateCollection = /* GraphQL */ `
       url
       nofProducts
       Products {
+        items {
+          id
+          name
+          description
+          price
+          units
+          pcs
+          url
+          collectionID
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -321,14 +402,22 @@ export const onDeleteCollection = /* GraphQL */ `
       url
       nofProducts
       Products {
+        items {
+          id
+          name
+          description
+          price
+          units
+          pcs
+          url
+          collectionID
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -337,8 +426,14 @@ export const onCreateCart = /* GraphQL */ `
     onCreateCart(filter: $filter) {
       id
       Products {
+        items {
+          id
+          productId
+          cartId
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       User {
         id
@@ -346,20 +441,29 @@ export const onCreateCart = /* GraphQL */ `
         lastName
         email
         hasChildren
+        physicalAddress {
+          city
+          country
+          fullAddress
+          province
+        }
         isAdmin
+        Children {
+          nextToken
+        }
+        Cart {
+          id
+          createdAt
+          updatedAt
+          cartUserId
+        }
         dob
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         userCartId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       cartUserId
     }
   }
@@ -369,8 +473,14 @@ export const onUpdateCart = /* GraphQL */ `
     onUpdateCart(filter: $filter) {
       id
       Products {
+        items {
+          id
+          productId
+          cartId
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       User {
         id
@@ -378,20 +488,29 @@ export const onUpdateCart = /* GraphQL */ `
         lastName
         email
         hasChildren
+        physicalAddress {
+          city
+          country
+          fullAddress
+          province
+        }
         isAdmin
+        Children {
+          nextToken
+        }
+        Cart {
+          id
+          createdAt
+          updatedAt
+          cartUserId
+        }
         dob
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         userCartId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       cartUserId
     }
   }
@@ -401,8 +520,14 @@ export const onDeleteCart = /* GraphQL */ `
     onDeleteCart(filter: $filter) {
       id
       Products {
+        items {
+          id
+          productId
+          cartId
+          createdAt
+          updatedAt
+        }
         nextToken
-        startedAt
       }
       User {
         id
@@ -410,20 +535,29 @@ export const onDeleteCart = /* GraphQL */ `
         lastName
         email
         hasChildren
+        physicalAddress {
+          city
+          country
+          fullAddress
+          province
+        }
         isAdmin
+        Children {
+          nextToken
+        }
+        Cart {
+          id
+          createdAt
+          updatedAt
+          cartUserId
+        }
         dob
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         userCartId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       cartUserId
     }
   }
@@ -444,27 +578,44 @@ export const onCreateProductsCart = /* GraphQL */ `
         units
         pcs
         url
+        Collection {
+          id
+          name
+          url
+          nofProducts
+          createdAt
+          updatedAt
+        }
+        Carts {
+          nextToken
+        }
         collectionID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       cart {
         id
+        Products {
+          nextToken
+        }
+        User {
+          id
+          firstName
+          lastName
+          email
+          hasChildren
+          isAdmin
+          dob
+          createdAt
+          updatedAt
+          userCartId
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         cartUserId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -484,27 +635,44 @@ export const onUpdateProductsCart = /* GraphQL */ `
         units
         pcs
         url
+        Collection {
+          id
+          name
+          url
+          nofProducts
+          createdAt
+          updatedAt
+        }
+        Carts {
+          nextToken
+        }
         collectionID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       cart {
         id
+        Products {
+          nextToken
+        }
+        User {
+          id
+          firstName
+          lastName
+          email
+          hasChildren
+          isAdmin
+          dob
+          createdAt
+          updatedAt
+          userCartId
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         cartUserId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -524,27 +692,44 @@ export const onDeleteProductsCart = /* GraphQL */ `
         units
         pcs
         url
+        Collection {
+          id
+          name
+          url
+          nofProducts
+          createdAt
+          updatedAt
+        }
+        Carts {
+          nextToken
+        }
         collectionID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       cart {
         id
+        Products {
+          nextToken
+        }
+        User {
+          id
+          firstName
+          lastName
+          email
+          hasChildren
+          isAdmin
+          dob
+          createdAt
+          updatedAt
+          userCartId
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         cartUserId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

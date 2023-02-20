@@ -32,35 +32,35 @@ export default function UserCreateForm(props) {
     firstName: "",
     lastName: "",
     email: "",
-    dob: "",
     hasChildren: false,
     isAdmin: false,
+    dob: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
   const [email, setEmail] = React.useState(initialValues.email);
-  const [dob, setDob] = React.useState(initialValues.dob);
   const [hasChildren, setHasChildren] = React.useState(
     initialValues.hasChildren
   );
   const [isAdmin, setIsAdmin] = React.useState(initialValues.isAdmin);
+  const [dob, setDob] = React.useState(initialValues.dob);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setFirstName(initialValues.firstName);
     setLastName(initialValues.lastName);
     setEmail(initialValues.email);
-    setDob(initialValues.dob);
     setHasChildren(initialValues.hasChildren);
     setIsAdmin(initialValues.isAdmin);
+    setDob(initialValues.dob);
     setErrors({});
   };
   const validations = {
     firstName: [{ type: "Required" }],
     lastName: [],
     email: [{ type: "Required" }, { type: "Email" }],
-    dob: [],
     hasChildren: [{ type: "Required" }],
     isAdmin: [{ type: "Required" }],
+    dob: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -78,23 +78,6 @@ export default function UserCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
-  const convertToLocal = (date) => {
-    const df = new Intl.DateTimeFormat("default", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      calendar: "iso8601",
-      numberingSystem: "latn",
-      hour12: false,
-    });
-    const parts = df.formatToParts(date).reduce((acc, part) => {
-      acc[part.type] = part.value;
-      return acc;
-    }, {});
-    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
-  };
   return (
     <Grid
       as="form"
@@ -107,9 +90,9 @@ export default function UserCreateForm(props) {
           firstName,
           lastName,
           email,
-          dob,
           hasChildren,
           isAdmin,
+          dob,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -167,9 +150,9 @@ export default function UserCreateForm(props) {
               firstName: value,
               lastName,
               email,
-              dob,
               hasChildren,
               isAdmin,
+              dob,
             };
             const result = onChange(modelFields);
             value = result?.firstName ?? value;
@@ -196,9 +179,9 @@ export default function UserCreateForm(props) {
               firstName,
               lastName: value,
               email,
-              dob,
               hasChildren,
               isAdmin,
+              dob,
             };
             const result = onChange(modelFields);
             value = result?.lastName ?? value;
@@ -225,9 +208,9 @@ export default function UserCreateForm(props) {
               firstName,
               lastName,
               email: value,
-              dob,
               hasChildren,
               isAdmin,
+              dob,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -242,37 +225,6 @@ export default function UserCreateForm(props) {
         hasError={errors.email?.hasError}
         {...getOverrideProps(overrides, "email")}
       ></TextField>
-      <TextField
-        label="Dob"
-        isRequired={false}
-        isReadOnly={false}
-        type="datetime-local"
-        value={dob && convertToLocal(new Date(dob))}
-        onChange={(e) => {
-          let value =
-            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              email,
-              dob: value,
-              hasChildren,
-              isAdmin,
-            };
-            const result = onChange(modelFields);
-            value = result?.dob ?? value;
-          }
-          if (errors.dob?.hasError) {
-            runValidationTasks("dob", value);
-          }
-          setDob(value);
-        }}
-        onBlur={() => runValidationTasks("dob", dob)}
-        errorMessage={errors.dob?.errorMessage}
-        hasError={errors.dob?.hasError}
-        {...getOverrideProps(overrides, "dob")}
-      ></TextField>
       <SwitchField
         label="Has children"
         defaultChecked={false}
@@ -285,9 +237,9 @@ export default function UserCreateForm(props) {
               firstName,
               lastName,
               email,
-              dob,
               hasChildren: value,
               isAdmin,
+              dob,
             };
             const result = onChange(modelFields);
             value = result?.hasChildren ?? value;
@@ -314,9 +266,9 @@ export default function UserCreateForm(props) {
               firstName,
               lastName,
               email,
-              dob,
               hasChildren,
               isAdmin: value,
+              dob,
             };
             const result = onChange(modelFields);
             value = result?.isAdmin ?? value;
@@ -331,6 +283,36 @@ export default function UserCreateForm(props) {
         hasError={errors.isAdmin?.hasError}
         {...getOverrideProps(overrides, "isAdmin")}
       ></SwitchField>
+      <TextField
+        label="Dob"
+        isRequired={false}
+        isReadOnly={false}
+        type="date"
+        value={dob}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              email,
+              hasChildren,
+              isAdmin,
+              dob: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.dob ?? value;
+          }
+          if (errors.dob?.hasError) {
+            runValidationTasks("dob", value);
+          }
+          setDob(value);
+        }}
+        onBlur={() => runValidationTasks("dob", dob)}
+        errorMessage={errors.dob?.errorMessage}
+        hasError={errors.dob?.hasError}
+        {...getOverrideProps(overrides, "dob")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

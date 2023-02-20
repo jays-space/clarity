@@ -11,7 +11,7 @@ type EagerAddress = {
   readonly city?: string | null;
   readonly country?: string | null;
   readonly fullAddress: string;
-  readonly coords: Coords;
+  readonly coords?: Coords | null;
   readonly province?: string | null;
 }
 
@@ -19,7 +19,7 @@ type LazyAddress = {
   readonly city?: string | null;
   readonly country?: string | null;
   readonly fullAddress: string;
-  readonly coords: Coords;
+  readonly coords?: Coords | null;
   readonly province?: string | null;
 }
 
@@ -41,72 +41,36 @@ export declare type Coords = LazyLoading extends LazyLoadingDisabled ? EagerCoor
 
 export declare const Coords: (new (init: ModelInit<Coords>) => Coords)
 
-type EagerAdmin = {
+type EagerCart = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Admin, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly firstName: string;
-  readonly lastName?: string | null;
-  readonly email: string;
-  readonly avatar?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyAdmin = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Admin, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly firstName: string;
-  readonly lastName?: string | null;
-  readonly email: string;
-  readonly avatar?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type Admin = LazyLoading extends LazyLoadingDisabled ? EagerAdmin : LazyAdmin
-
-export declare const Admin: (new (init: ModelInit<Admin>) => Admin) & {
-  copyOf(source: Admin, mutator: (draft: MutableModel<Admin>) => MutableModel<Admin> | void): Admin;
-}
-
-type EagerWishlist = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Wishlist, 'id'>;
+    identifier: ManagedIdentifier<Cart, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
   readonly User?: User | null;
-  readonly Products?: (ProductsWishlist | null)[] | null;
-  readonly adminID: string;
+  readonly Products?: (CartProduct | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly wishlistUserId?: string | null;
+  readonly cartUserId?: string | null;
 }
 
-type LazyWishlist = {
+type LazyCart = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Wishlist, 'id'>;
+    identifier: ManagedIdentifier<Cart, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
   readonly User: AsyncItem<User | undefined>;
-  readonly Products: AsyncCollection<ProductsWishlist>;
-  readonly adminID: string;
+  readonly Products: AsyncCollection<CartProduct>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly wishlistUserId?: string | null;
+  readonly cartUserId?: string | null;
 }
 
-export declare type Wishlist = LazyLoading extends LazyLoadingDisabled ? EagerWishlist : LazyWishlist
+export declare type Cart = LazyLoading extends LazyLoadingDisabled ? EagerCart : LazyCart
 
-export declare const Wishlist: (new (init: ModelInit<Wishlist>) => Wishlist) & {
-  copyOf(source: Wishlist, mutator: (draft: MutableModel<Wishlist>) => MutableModel<Wishlist> | void): Wishlist;
+export declare const Cart: (new (init: ModelInit<Cart>) => Cart) & {
+  copyOf(source: Cart, mutator: (draft: MutableModel<Cart>) => MutableModel<Cart> | void): Cart;
 }
 
 type EagerUser = {
@@ -118,17 +82,15 @@ type EagerUser = {
   readonly firstName: string;
   readonly lastName?: string | null;
   readonly email: string;
-  readonly dob?: string | null;
   readonly hasChildren: boolean;
-  readonly Children?: (Child | null)[] | null;
   readonly physicalAddress?: Address | null;
-  readonly Cart?: Cart | null;
-  readonly Wishlist?: Wishlist | null;
   readonly isAdmin: boolean;
+  readonly dob?: string | null;
+  readonly Cart?: Cart | null;
+  readonly Children?: (Child | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly userCartId?: string | null;
-  readonly userWishlistId?: string | null;
 }
 
 type LazyUser = {
@@ -140,17 +102,15 @@ type LazyUser = {
   readonly firstName: string;
   readonly lastName?: string | null;
   readonly email: string;
-  readonly dob?: string | null;
   readonly hasChildren: boolean;
-  readonly Children: AsyncCollection<Child>;
   readonly physicalAddress?: Address | null;
-  readonly Cart: AsyncItem<Cart | undefined>;
-  readonly Wishlist: AsyncItem<Wishlist | undefined>;
   readonly isAdmin: boolean;
+  readonly dob?: string | null;
+  readonly Cart: AsyncItem<Cart | undefined>;
+  readonly Children: AsyncCollection<Child>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly userCartId?: string | null;
-  readonly userWishlistId?: string | null;
 }
 
 export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser : LazyUser
@@ -168,8 +128,9 @@ type EagerChild = {
   readonly firstName: string;
   readonly lastName?: string | null;
   readonly dob: string;
-  readonly gender: Gender | keyof typeof Gender;
+  readonly gender?: Gender | keyof typeof Gender | null;
   readonly userID: string;
+  readonly User?: User | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -183,8 +144,9 @@ type LazyChild = {
   readonly firstName: string;
   readonly lastName?: string | null;
   readonly dob: string;
-  readonly gender: Gender | keyof typeof Gender;
+  readonly gender?: Gender | keyof typeof Gender | null;
   readonly userID: string;
+  readonly User: AsyncItem<User | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -195,144 +157,114 @@ export declare const Child: (new (init: ModelInit<Child>) => Child) & {
   copyOf(source: Child, mutator: (draft: MutableModel<Child>) => MutableModel<Child> | void): Child;
 }
 
-type EagerCart = {
+type EagerProduct = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Cart, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly Products?: (ProductsCart | null)[] | null;
-  readonly User?: User | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  readonly cartUserId?: string | null;
-}
-
-type LazyCart = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Cart, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly Products: AsyncCollection<ProductsCart>;
-  readonly User: AsyncItem<User | undefined>;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  readonly cartUserId?: string | null;
-}
-
-export declare type Cart = LazyLoading extends LazyLoadingDisabled ? EagerCart : LazyCart
-
-export declare const Cart: (new (init: ModelInit<Cart>) => Cart) & {
-  copyOf(source: Cart, mutator: (draft: MutableModel<Cart>) => MutableModel<Cart> | void): Cart;
-}
-
-type EagerProducts = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Products, 'id'>;
+    identifier: ManagedIdentifier<Product, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
   readonly name: string;
-  readonly descriptio?: string | null;
+  readonly description: string;
   readonly price: number;
   readonly units: number;
-  readonly images?: (string | null)[] | null;
-  readonly Carts?: (ProductsCart | null)[] | null;
-  readonly Wishlists?: (ProductsWishlist | null)[] | null;
-  readonly adminID: string;
+  readonly pcs: number;
+  readonly url: string;
+  readonly carts?: (CartProduct | null)[] | null;
+  readonly collectionID: string;
+  readonly Collection?: Collection | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyProducts = {
+type LazyProduct = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Products, 'id'>;
+    identifier: ManagedIdentifier<Product, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
   readonly name: string;
-  readonly descriptio?: string | null;
+  readonly description: string;
   readonly price: number;
   readonly units: number;
-  readonly images?: (string | null)[] | null;
-  readonly Carts: AsyncCollection<ProductsCart>;
-  readonly Wishlists: AsyncCollection<ProductsWishlist>;
-  readonly adminID: string;
+  readonly pcs: number;
+  readonly url: string;
+  readonly carts: AsyncCollection<CartProduct>;
+  readonly collectionID: string;
+  readonly Collection: AsyncItem<Collection | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Products = LazyLoading extends LazyLoadingDisabled ? EagerProducts : LazyProducts
+export declare type Product = LazyLoading extends LazyLoadingDisabled ? EagerProduct : LazyProduct
 
-export declare const Products: (new (init: ModelInit<Products>) => Products) & {
-  copyOf(source: Products, mutator: (draft: MutableModel<Products>) => MutableModel<Products> | void): Products;
+export declare const Product: (new (init: ModelInit<Product>) => Product) & {
+  copyOf(source: Product, mutator: (draft: MutableModel<Product>) => MutableModel<Product> | void): Product;
 }
 
-type EagerProductsWishlist = {
+type EagerCollection = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<ProductsWishlist, 'id'>;
+    identifier: ManagedIdentifier<Collection, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly wishlistId?: string | null;
-  readonly productsId?: string | null;
-  readonly wishlist: Wishlist;
-  readonly products: Products;
+  readonly name: string;
+  readonly url: string;
+  readonly Products?: (Product | null)[] | null;
+  readonly nofProducts: number;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyProductsWishlist = {
+type LazyCollection = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<ProductsWishlist, 'id'>;
+    identifier: ManagedIdentifier<Collection, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly wishlistId?: string | null;
-  readonly productsId?: string | null;
-  readonly wishlist: AsyncItem<Wishlist>;
-  readonly products: AsyncItem<Products>;
+  readonly name: string;
+  readonly url: string;
+  readonly Products: AsyncCollection<Product>;
+  readonly nofProducts: number;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type ProductsWishlist = LazyLoading extends LazyLoadingDisabled ? EagerProductsWishlist : LazyProductsWishlist
+export declare type Collection = LazyLoading extends LazyLoadingDisabled ? EagerCollection : LazyCollection
 
-export declare const ProductsWishlist: (new (init: ModelInit<ProductsWishlist>) => ProductsWishlist) & {
-  copyOf(source: ProductsWishlist, mutator: (draft: MutableModel<ProductsWishlist>) => MutableModel<ProductsWishlist> | void): ProductsWishlist;
+export declare const Collection: (new (init: ModelInit<Collection>) => Collection) & {
+  copyOf(source: Collection, mutator: (draft: MutableModel<Collection>) => MutableModel<Collection> | void): Collection;
 }
 
-type EagerProductsCart = {
+type EagerCartProduct = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<ProductsCart, 'id'>;
+    identifier: ManagedIdentifier<CartProduct, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
   readonly cartId?: string | null;
-  readonly productsId?: string | null;
+  readonly productId?: string | null;
   readonly cart: Cart;
-  readonly products: Products;
+  readonly product: Product;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyProductsCart = {
+type LazyCartProduct = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<ProductsCart, 'id'>;
+    identifier: ManagedIdentifier<CartProduct, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
   readonly cartId?: string | null;
-  readonly productsId?: string | null;
+  readonly productId?: string | null;
   readonly cart: AsyncItem<Cart>;
-  readonly products: AsyncItem<Products>;
+  readonly product: AsyncItem<Product>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type ProductsCart = LazyLoading extends LazyLoadingDisabled ? EagerProductsCart : LazyProductsCart
+export declare type CartProduct = LazyLoading extends LazyLoadingDisabled ? EagerCartProduct : LazyCartProduct
 
-export declare const ProductsCart: (new (init: ModelInit<ProductsCart>) => ProductsCart) & {
-  copyOf(source: ProductsCart, mutator: (draft: MutableModel<ProductsCart>) => MutableModel<ProductsCart> | void): ProductsCart;
+export declare const CartProduct: (new (init: ModelInit<CartProduct>) => CartProduct) & {
+  copyOf(source: CartProduct, mutator: (draft: MutableModel<CartProduct>) => MutableModel<CartProduct> | void): CartProduct;
 }

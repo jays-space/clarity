@@ -1,27 +1,28 @@
-type Wishlist @model @auth(rules: [{ allow: public }]) {
+type Cart @model @auth(rules: [{allow: public}]) {
   id: ID!
   User: User @belongsTo
-  Products: [Products] @manyToMany(relationName: "ProductsWishlist")
+  Products: [Product] @manyToMany(relationName: "CartProduct")
 }
 
-type Cart @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  Products: [Products] @manyToMany(relationName: "ProductsCart")
-  User: User @belongsTo
-}
-
-type Products @model @auth(rules: [{ allow: public }]) {
+type Collection @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
-  description: String
+  url: AWSURL!
+  Products: [Product] @hasMany(indexName: "byCollection", fields: ["id"])
+  nofProducts: Int!
+}
+
+type Product @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String!
   price: Float!
   units: Int!
-  quantity: Int!
   pcs: Int!
-  url: [String]
-  Carts: [Cart] @manyToMany(relationName: "ProductsCart")
-  Wishlists: [Wishlist] @manyToMany(relationName: "ProductsWishlist")
-  createdBy: ID! @index(name: "byUser")
+  url: AWSURL!
+  carts: [Cart] @manyToMany(relationName: "CartProduct")
+  collectionID: ID! @index(name: "byCollection")
+  Collection: Collection @belongsTo(fields: ["collectionID"])
 }
 
 type Coords {
@@ -33,8 +34,21 @@ type Address {
   city: String
   country: String
   fullAddress: String!
-  coords: Coords!
+  coords: Coords
   province: String
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String
+  email: AWSEmail!
+  hasChildren: Boolean!
+  physicalAddress: Address
+  isAdmin: Boolean!
+  dob: AWSDate
+  Cart: Cart @hasOne
+  Children: [Child] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 enum Gender {
@@ -42,25 +56,12 @@ enum Gender {
   MALE
 }
 
-type Child @model @auth(rules: [{ allow: public }]) {
+type Child @model @auth(rules: [{allow: public}]) {
   id: ID!
   firstName: String!
   lastName: String
-  dob: AWSDateTime!
-  gender: Gender!
-  parentID: ID! @index(name: "byUser")
-}
-
-type User @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  firstName: String!
-  lastName: String
-  email: AWSEmail!
-  dob: AWSDate
-  hasChildren: Boolean!
-  Children: [Child] @hasMany(indexName: "byUser", fields: ["id"])
-  physicalAddress: Address
-  Cart: Cart @hasOne
-  Wishlist: Wishlist @hasOne
-  isAdmin: Boolean!
+  dob: AWSDate!
+  gender: Gender
+  userID: ID! @index(name: "byUser")
+  User: User @belongsTo(fields: ["userID"])
 }

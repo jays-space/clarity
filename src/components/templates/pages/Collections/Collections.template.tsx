@@ -1,22 +1,30 @@
+import { ApolloError } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 
+// TYPES
+import { CollectionType } from "@/types";
+
 // COMPONENTS
-import { CollectionSelector } from "@/components/integrated";
+import { APIErrorMessage, Button, CollectionSelector } from "@components/integrated";
 import { Heading } from "@/components/atomic/typography";
+import { ActivityIndicator } from "@/components/atomic";
 
 // UTILS
 import { stringUtils } from "@/utils";
 
 interface ICollectionsTemplate {
-  collections: {
-    id: number;
-    uri: string;
-    name: string;
-    alt: string;
-  }[];
+  loading: boolean;
+  error: ApolloError | undefined;
+  collections: (CollectionType | null)[];
+  refetch: () => void;
 }
 
-const CollectionsTemplate = ({ collections }: ICollectionsTemplate) => {
+const CollectionsTemplate = ({
+  collections,
+  error,
+  loading,
+  refetch,
+}: ICollectionsTemplate) => {
   const navigate = useNavigate();
 
   const onCollectionSelect = (collection: string) => {
@@ -27,24 +35,37 @@ const CollectionsTemplate = ({ collections }: ICollectionsTemplate) => {
     <>
       <div className={`w-/12 my-6`}>
         <Heading title="cupcakes" variant="h2" />
+        <Button label="refresh" onClick={() => refetch()} />
       </div>
 
       <div
         className={`flex flex-row justify-center items-center flex-wrap gap-6 w-9/12`}
       >
-        {collections.map(({ alt, id, name, uri }) => {
-          return (
-            <CollectionSelector
-              key={id}
-              label={name}
-              src={uri}
-              alt={alt}
-              onClick={() =>
-                onCollectionSelect(stringUtils.splitAndJoin(name, " ", "_"))
-              }
-            />
-          );
-        })}
+        {loading && <ActivityIndicator />}
+        {error && (
+          <APIErrorMessage
+            title={error.name}
+            message={error.message}
+            onRetry={() => refetch()}
+          />
+        )}
+
+        {collections &&
+          collections.map((collection) => {
+            return (
+              <CollectionSelector
+                key={collection?.id}
+                label={collection?.name || ""}
+                src={collection?.url || ""}
+                alt={collection?.name || ""}
+                onClick={() =>
+                  onCollectionSelect(
+                    stringUtils.splitAndJoin(collection?.name || "", " ", "_")
+                  )
+                }
+              />
+            );
+          })}
       </div>
     </>
   );

@@ -1,19 +1,23 @@
 import { useNavigate, useParams } from "react-router-dom";
 
+// TYPES
+import { CupcakeType } from "@/types/Product.Types";
+
 // COMPONENTS
-import { CollectionItemSelector } from "@/components/integrated";
+import { Button, CollectionItemSelector } from "@/components/integrated";
 import { Heading } from "@/components/atomic/typography";
 
 interface ICollectionPageTemplate {
-  collection: {
-    id: number;
-    src: string;
-    name: string;
-    price: number;
-  }[];
+  products: CupcakeType[];
+  refetch: () => void;
+  loading: boolean;
 }
 
-const CollectionTemplate = ({ collection }: ICollectionPageTemplate) => {
+const CollectionTemplate = ({
+  products,
+  refetch,
+  loading,
+}: ICollectionPageTemplate) => {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -32,24 +36,33 @@ const CollectionTemplate = ({ collection }: ICollectionPageTemplate) => {
           } cupcakes`}
           variant="h2"
         />
+        <Button
+          label="refresh"
+          onClick={() => refetch()}
+          loading={loading}
+          success={products && products.length > 0}
+          className={`mb-6`}
+        />
       </div>
 
-      <div
-        className={`flex flex-row justify-center items-center flex-wrap gap-6`}
-      >
-        {collection.map(({ id, name, price, src }) => {
-          return (
-            <CollectionItemSelector
-              key={id}
-              name={name}
-              price={price}
-              src={src}
-              onAddToBagClick={() => {}}
-              onViewCupcakeClick={() => onCollectionItemSelect(id.toString())}
-            />
-          );
-        })}
-      </div>
+      {
+        <div
+          className={`flex flex-row justify-center items-center flex-wrap gap-6`}
+        >
+          {products.map(({ id, name, url, price }) => {
+            return (
+              <CollectionItemSelector
+                key={id}
+                name={name}
+                price={price}
+                src={url}
+                onAddToBagClick={() => {}}
+                onViewCupcakeClick={() => onCollectionItemSelect(id.toString())}
+              />
+            );
+          })}
+        </div>
+      }
     </>
   );
 };

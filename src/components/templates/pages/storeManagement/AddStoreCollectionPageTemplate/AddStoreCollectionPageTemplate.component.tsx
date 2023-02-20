@@ -8,14 +8,18 @@ import { Button } from "@/components/integrated";
 
 interface ITextInput {
   control: Control<AddCollectionFormType, any>;
-  onAddCollectionFormSubmit: (formData: AddCollectionFormType) => void;
+  collectionFormSubmit: (formData: AddCollectionFormType) => void;
   handleSubmit: UseFormHandleSubmit<AddCollectionFormType>;
+  loading?: boolean
+  success?: boolean
 }
 
 const AddStoreCollectionItemFormTemplate = ({
   control,
   handleSubmit,
-  onAddCollectionFormSubmit,
+  collectionFormSubmit,
+  loading,
+  success
 }: ITextInput) => {
   return (
     <>
@@ -52,7 +56,12 @@ const AddStoreCollectionItemFormTemplate = ({
           />
         </div>
       </div>
-      <Button label="submit" onClick={handleSubmit(onAddCollectionFormSubmit)} />
+      <Button
+        label="submit"
+        loading={loading}
+        success={success}
+        onClick={handleSubmit(collectionFormSubmit)}
+      />
     </>
   );
 };

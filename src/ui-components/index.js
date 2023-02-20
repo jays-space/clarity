@@ -5,13 +5,9 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
-export { default as AdminCreateForm } from "./AdminCreateForm";
-export { default as AdminUpdateForm } from "./AdminUpdateForm";
-export { default as WishlistCreateForm } from "./WishlistCreateForm";
-export { default as WishlistUpdateForm } from "./WishlistUpdateForm";
 export { default as CartCreateForm } from "./CartCreateForm";
 export { default as CartUpdateForm } from "./CartUpdateForm";
-export { default as ProductsCreateForm } from "./ProductsCreateForm";
-export { default as ProductsUpdateForm } from "./ProductsUpdateForm";
 export { default as UserCreateForm } from "./UserCreateForm";
 export { default as UserUpdateForm } from "./UserUpdateForm";
+export { default as CollectionCreateForm } from "./CollectionCreateForm";
+export { default as CollectionUpdateForm } from "./CollectionUpdateForm";
