@@ -1,19 +1,22 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-// COMPONENTS
-import { CollectionItemSelector } from "@/components/integrated";
-import { Heading } from "@/components/atomic/typography";
-import { CollectionType } from "@types";
+// TYPES
 import { CupcakeType } from "@/types/Product.Types";
 
+// COMPONENTS
+import { Button, CollectionItemSelector } from "@/components/integrated";
+import { Heading } from "@/components/atomic/typography";
+
 interface ICollectionPageTemplate {
-  collection: CollectionType;
   products: CupcakeType[];
+  refetch: () => void;
+  loading: boolean;
 }
 
 const CollectionTemplate = ({
-  collection,
   products,
+  refetch,
+  loading,
 }: ICollectionPageTemplate) => {
   const navigate = useNavigate();
   const params = useParams();
@@ -32,6 +35,13 @@ const CollectionTemplate = ({
             params?.collectionName ? params?.collectionName : ""
           } cupcakes`}
           variant="h2"
+        />
+        <Button
+          label="refresh"
+          onClick={() => refetch()}
+          loading={loading}
+          success={products && products.length > 0}
+          className={`mb-6`}
         />
       </div>
 

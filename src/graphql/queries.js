@@ -36,6 +36,35 @@ export const listChildren = /* GraphQL */ `
     }
   }
 `;
+export const childrenByUserID = /* GraphQL */ `
+  query ChildrenByUserID(
+    $userID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelChildFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    childrenByUserID(
+      userID: $userID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        firstName
+        lastName
+        dob
+        gender
+        userID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -178,6 +207,48 @@ export const listProducts = /* GraphQL */ `
     $nextToken: String
   ) {
     listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        price
+        units
+        pcs
+        url
+        Collection {
+          id
+          name
+          url
+          nofProducts
+          createdAt
+          updatedAt
+        }
+        Carts {
+          nextToken
+        }
+        collectionID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const productsByCollectionID = /* GraphQL */ `
+  query ProductsByCollectionID(
+    $collectionID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    productsByCollectionID(
+      collectionID: $collectionID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         name
@@ -417,77 +488,6 @@ export const listProductsCarts = /* GraphQL */ `
           updatedAt
           cartUserId
         }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const childrenByUserID = /* GraphQL */ `
-  query ChildrenByUserID(
-    $userID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelChildFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    childrenByUserID(
-      userID: $userID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        firstName
-        lastName
-        dob
-        gender
-        userID
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const productsByCollectionID = /* GraphQL */ `
-  query ProductsByCollectionID(
-    $collectionID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelProductFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    productsByCollectionID(
-      collectionID: $collectionID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        description
-        price
-        units
-        pcs
-        url
-        Collection {
-          id
-          name
-          url
-          nofProducts
-          createdAt
-          updatedAt
-        }
-        Carts {
-          nextToken
-        }
-        collectionID
         createdAt
         updatedAt
       }

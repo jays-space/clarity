@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CollectionType } from "@/types";
 
 // COMPONENTS
-import { APIErrorMessage, CollectionSelector } from "@/components/integrated";
+import { APIErrorMessage, Button, CollectionSelector } from "@components/integrated";
 import { Heading } from "@/components/atomic/typography";
 import { ActivityIndicator } from "@/components/atomic";
 
@@ -35,6 +35,7 @@ const CollectionsTemplate = ({
     <>
       <div className={`w-/12 my-6`}>
         <Heading title="cupcakes" variant="h2" />
+        <Button label="refresh" onClick={() => refetch()} />
       </div>
 
       <div

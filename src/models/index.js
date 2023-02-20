@@ -7,17 +7,15 @@ const Gender = {
   "MALE": "MALE"
 };
 
-const { Wishlist, User, Child, Cart, Products, Collection, ProductsWishlist, ProductsCart, Address, Coords } = initSchema(schema);
+const { Cart, User, Child, Product, Collection, CartProduct, Address, Coords } = initSchema(schema);
 
 export {
-  Wishlist,
+  Cart,
   User,
   Child,
-  Cart,
-  Products,
+  Product,
   Collection,
-  ProductsWishlist,
-  ProductsCart,
+  CartProduct,
   Gender,
   Address,
   Coords

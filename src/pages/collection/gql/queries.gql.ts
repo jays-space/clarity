@@ -22,7 +22,7 @@ export const getCollection = gql`
 
 export const listProductsByCollection = gql`
   query ListProducts(
-    $filter: ModelProductsFilterInput
+    $filter: ModelProductFilterInput
     $limit: Int
     $nextToken: String
   ) {

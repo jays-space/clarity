@@ -15,11 +15,11 @@ export const createCollection = gql`
 `;
 
 export const createCupcake = gql`
-  mutation CreateProducts(
-    $input: CreateProductsInput!
-    $condition: ModelProductsConditionInput
+ mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
   ) {
-    createProducts(input: $input, condition: $condition) {
+    createProduct(input: $input, condition: $condition) {
       id
       name
       description
@@ -27,7 +27,23 @@ export const createCupcake = gql`
       units
       pcs
       url
+      Collection {
+        id
+        name
+        url
+        nofProducts
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
       collectionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

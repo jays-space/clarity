@@ -14,21 +14,18 @@ const CollectionsPage = () => {
     ListCollectionsQueryVariables
   >(listCollections);
 
-  console.log(data);
-  
-
-  // const collections = data?.listCollections?.items.filter(
-  //   (collection) => !collection?._deleted
-  // );
+  const collections = data?.listCollections?.items.filter(
+    (collection) => !collection?._deleted
+  );
 
   return (
     <Page>
-      {/* <CollectionsTemplate
+      <CollectionsTemplate
         collections={collections || []}
         loading={loading}
         error={error}
         refetch={refetch}
-      /> */}
+      />
     </Page>
   );
 };

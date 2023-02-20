@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "clarityassesment",
+  "AppSyncApiName": "clarityAssesment",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false
 }

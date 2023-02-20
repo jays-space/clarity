@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Wishlist": {
-            "name": "Wishlist",
+        "Cart": {
+            "name": "Cart",
             "fields": {
                 "id": {
                     "name": "id",
@@ -21,7 +21,7 @@ export const schema = {
                     "association": {
                         "connectionType": "BELONGS_TO",
                         "targetNames": [
-                            "wishlistUserId"
+                            "cartUserId"
                         ]
                     }
                 },
@@ -29,7 +29,7 @@ export const schema = {
                     "name": "Products",
                     "isArray": true,
                     "type": {
-                        "model": "ProductsWishlist"
+                        "model": "CartProduct"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -37,7 +37,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "wishlist"
+                            "cart"
                         ]
                     }
                 },
@@ -57,8 +57,8 @@ export const schema = {
                     "attributes": [],
                     "isReadOnly": true
                 },
-                "wishlistUserId": {
-                    "name": "wishlistUserId",
+                "cartUserId": {
+                    "name": "cartUserId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -66,7 +66,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Wishlists",
+            "pluralName": "Carts",
             "attributes": [
                 {
                     "type": "model",
@@ -121,13 +121,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "dob": {
-                    "name": "dob",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "hasChildren": {
                     "name": "hasChildren",
                     "isArray": false,
@@ -135,28 +128,26 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Children": {
-                    "name": "Children",
-                    "isArray": true,
-                    "type": {
-                        "model": "Child"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "parentID"
-                        ]
-                    }
-                },
                 "physicalAddress": {
                     "name": "physicalAddress",
                     "isArray": false,
                     "type": {
                         "nonModel": "Address"
                     },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isAdmin": {
+                    "name": "isAdmin",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "dob": {
+                    "name": "dob",
+                    "isArray": false,
+                    "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -178,30 +169,21 @@ export const schema = {
                         ]
                     }
                 },
-                "Wishlist": {
-                    "name": "Wishlist",
-                    "isArray": false,
+                "Children": {
+                    "name": "Children",
+                    "isArray": true,
                     "type": {
-                        "model": "Wishlist"
+                        "model": "Child"
                     },
                     "isRequired": false,
                     "attributes": [],
+                    "isArrayNullable": true,
                     "association": {
-                        "connectionType": "HAS_ONE",
+                        "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "userWishlistId"
+                            "User"
                         ]
                     }
-                },
-                "isAdmin": {
-                    "name": "isAdmin",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -221,13 +203,6 @@ export const schema = {
                 },
                 "userCartId": {
                     "name": "userCartId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "userWishlistId": {
-                    "name": "userWishlistId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -296,15 +271,30 @@ export const schema = {
                     "type": {
                         "enum": "Gender"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
-                "parentID": {
-                    "name": "parentID",
+                "userID": {
+                    "name": "userID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "User": {
+                    "name": "User",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "userID"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -335,7 +325,7 @@ export const schema = {
                     "properties": {
                         "name": "byUser",
                         "fields": [
-                            "parentID"
+                            "userID"
                         ]
                     }
                 },
@@ -357,98 +347,8 @@ export const schema = {
                 }
             ]
         },
-        "Cart": {
-            "name": "Cart",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Products": {
-                    "name": "Products",
-                    "isArray": true,
-                    "type": {
-                        "model": "ProductsCart"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "cart"
-                        ]
-                    }
-                },
-                "User": {
-                    "name": "User",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "cartUserId"
-                        ]
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "cartUserId": {
-                    "name": "cartUserId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Carts",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Products": {
-            "name": "Products",
+        "Product": {
+            "name": "Product",
             "fields": {
                 "id": {
                     "name": "id",
@@ -468,7 +368,7 @@ export const schema = {
                     "name": "description",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "price": {
@@ -495,15 +395,15 @@ export const schema = {
                 "url": {
                     "name": "url",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSURL",
                     "isRequired": true,
                     "attributes": []
                 },
-                "Carts": {
-                    "name": "Carts",
+                "carts": {
+                    "name": "carts",
                     "isArray": true,
                     "type": {
-                        "model": "ProductsCart"
+                        "model": "CartProduct"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -511,23 +411,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "products"
-                        ]
-                    }
-                },
-                "Wishlists": {
-                    "name": "Wishlists",
-                    "isArray": true,
-                    "type": {
-                        "model": "ProductsWishlist"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "products"
+                            "product"
                         ]
                     }
                 },
@@ -537,6 +421,21 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "Collection": {
+                    "name": "Collection",
+                    "isArray": false,
+                    "type": {
+                        "model": "Collection"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "collectionID"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -609,14 +508,7 @@ export const schema = {
                 "url": {
                     "name": "url",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "nofProducts": {
-                    "name": "nofProducts",
-                    "isArray": false,
-                    "type": "Int",
+                    "type": "AWSURL",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -624,7 +516,7 @@ export const schema = {
                     "name": "Products",
                     "isArray": true,
                     "type": {
-                        "model": "Products"
+                        "model": "Product"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -632,9 +524,16 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "collectionID"
+                            "Collection"
                         ]
                     }
+                },
+                "nofProducts": {
+                    "name": "nofProducts",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -678,106 +577,8 @@ export const schema = {
                 }
             ]
         },
-        "ProductsWishlist": {
-            "name": "ProductsWishlist",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "wishlistId": {
-                    "name": "wishlistId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "productsId": {
-                    "name": "productsId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "wishlist": {
-                    "name": "wishlist",
-                    "isArray": false,
-                    "type": {
-                        "model": "Wishlist"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "wishlistId"
-                        ]
-                    }
-                },
-                "products": {
-                    "name": "products",
-                    "isArray": false,
-                    "type": {
-                        "model": "Products"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "productsId"
-                        ]
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "ProductsWishlists",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byWishlist",
-                        "fields": [
-                            "wishlistId"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byProducts",
-                        "fields": [
-                            "productsId"
-                        ]
-                    }
-                }
-            ]
-        },
-        "ProductsCart": {
-            "name": "ProductsCart",
+        "CartProduct": {
+            "name": "CartProduct",
             "fields": {
                 "id": {
                     "name": "id",
@@ -793,8 +594,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "productsId": {
-                    "name": "productsId",
+                "productId": {
+                    "name": "productId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -815,18 +616,18 @@ export const schema = {
                         ]
                     }
                 },
-                "products": {
-                    "name": "products",
+                "product": {
+                    "name": "product",
                     "isArray": false,
                     "type": {
-                        "model": "Products"
+                        "model": "Product"
                     },
                     "isRequired": true,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
                         "targetNames": [
-                            "productsId"
+                            "productId"
                         ]
                     }
                 },
@@ -848,7 +649,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "ProductsCarts",
+            "pluralName": "CartProducts",
             "attributes": [
                 {
                     "type": "model",
@@ -866,9 +667,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byProducts",
+                        "name": "byProduct",
                         "fields": [
-                            "productsId"
+                            "productId"
                         ]
                     }
                 }
@@ -915,7 +716,7 @@ export const schema = {
                     "type": {
                         "nonModel": "Coords"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "province": {
@@ -948,5 +749,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.3.5",
-    "version": "1c482e291a570c2a9a920520d3ffccc7"
+    "version": "2aa4cbf43b109355499059524dedf4c3"
 };

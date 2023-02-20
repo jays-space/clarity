@@ -10,11 +10,6 @@
       "StackName": "amplify-clarityassesment-staging-164437",
       "StackId": "arn:aws:cloudformation:eu-west-2:910100023747:stack/amplify-clarityassesment-staging-164437/08bd0e30-ad50-11ed-a17d-0a837a31b980",
       "AmplifyAppId": "d2suji5t02r8ie"
-    },
-    "categories": {
-      "api": {
-        "clarityassesment": {}
-      }
     }
   }
 }

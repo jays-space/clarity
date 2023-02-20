@@ -69,11 +69,11 @@ export const routerConfig: RoutesType = {
   },
   StoreCollectionItemPage: {
     label: "StoreCollectionItemPage",
-    path: `${StoreRoot}/collections/:collectionName/:productID`,
+    path: `${StoreRoot}/collections/:collectionName/:cupcakeID`,
   },
   EditStoreCollectionItemPage: {
     label: "EditStoreCollectionItemPage",
-    path: `${StoreRoot}/collections/:collectionName/:productID/edit`,
+    path: `${StoreRoot}/collections/:collectionName/:cupcakeID/edit`,
   },
   AddStoreCollectionItemPage: {
     label: "add new cupcake",

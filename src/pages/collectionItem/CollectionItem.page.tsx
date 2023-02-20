@@ -1,4 +1,5 @@
 // TEMPLATES
+import { GetProductQuery, GetProductQueryVariables } from "@/API";
 import { Page } from "@/components/atomic";
 import { CollectionItemTemplate } from "@/components/templates/pages/CollectionItem";
 import { useCartContext } from "@/contexts";
@@ -6,9 +7,23 @@ import { useCartContext } from "@/contexts";
 // MOCK
 import { CollectionItemPageMock } from "@/mock/CollectionItemPage.mock";
 import { CartItemType } from "@/types";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
+import { getCupcake } from "../collections/gql/queries.gql";
 
 const CollectionItemPage = () => {
   const { setCartItems, cartItems } = useCartContext();
+  const params = useParams();
+
+  console.log(params);
+  
+
+  const { data, loading, error, refetch } = useQuery<
+    GetProductQuery,
+    GetProductQueryVariables
+  >(getCupcake, { variables: { id: params.cupcakeID as string } });
+
+  const cupcake = data?.getProduct;
 
   const onAddToBagClick = (cartItemToAdd: CartItemType) => {
     //looks through the currentCartItems array of objects to find an instance where cart ids match. If no match, returns undefined
@@ -50,22 +65,36 @@ const CollectionItemPage = () => {
     });
   };
 
-  const { description, name, price, url, quantity, id, units } =
-    CollectionItemPageMock;
-
   return (
     <Page>
       <CollectionItemTemplate
-        description={description}
-        name={name}
-        price={price}
-        uri={url}
+        description={cupcake?.description as string}
+        name={cupcake?.name as string}
+        price={cupcake?.price as number}
+        uri={cupcake?.url as string}
         addToBagClick={() =>
-          onAddToBagClick({ id, name, price, quantity, url, units })
+          onAddToBagClick({
+            id: cupcake?.id as string,
+            name: cupcake?.name as string,
+            price: cupcake?.price as number,
+            quantity: cupcake?.pcs as number,
+            url: cupcake?.url as string,
+            units: cupcake?.units as number,
+          })
         }
         removeFromBagClick={() =>
-          onRemoveFromBagClick({ id, name, price, quantity, url, units })
+          onRemoveFromBagClick({
+            id: cupcake?.id as string,
+            name: cupcake?.name as string,
+            price: cupcake?.price as number,
+            quantity: cupcake?.pcs as number,
+            url: cupcake?.url as string,
+            units: cupcake?.units as number,
+          })
         }
+        loading={loading}
+        error={error}
+        refetch={refetch}
       />
     </Page>
   );

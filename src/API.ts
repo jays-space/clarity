@@ -1699,6 +1699,7 @@ export type ListCollectionsQuery = {
       name: string,
       url: string,
       nofProducts: number,
+      Products?: ModelProductConnection | null
       createdAt: string,
       updatedAt: string,
       _version: number,

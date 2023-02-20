@@ -8,7 +8,7 @@ import { Button } from "@/components/integrated";
 
 interface ITextInput {
   control: Control<AddCollectionFormType, any>;
-  onAddCollectionFormSubmit: (formData: AddCollectionFormType) => void;
+  collectionFormSubmit: (formData: AddCollectionFormType) => void;
   handleSubmit: UseFormHandleSubmit<AddCollectionFormType>;
   loading?: boolean
   success?: boolean
@@ -17,7 +17,7 @@ interface ITextInput {
 const AddStoreCollectionItemFormTemplate = ({
   control,
   handleSubmit,
-  onAddCollectionFormSubmit,
+  collectionFormSubmit,
   loading,
   success
 }: ITextInput) => {
@@ -60,7 +60,7 @@ const AddStoreCollectionItemFormTemplate = ({
         label="submit"
         loading={loading}
         success={success}
-        onClick={handleSubmit(onAddCollectionFormSubmit)}
+        onClick={handleSubmit(collectionFormSubmit)}
       />
     </>
   );

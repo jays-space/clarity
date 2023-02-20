@@ -4,32 +4,34 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
 // TYPES
-import { CollectionType } from "@types";
+import { CupcakeType } from "@types";
 
 // GQL
-import { listProducts } from "../../gql/queries.gql";
-import { ListProductsQuery, ListProductsQueryVariables } from "@/API";
+import { listCollections } from "../../gql/queries.gql";
+import {
+  ListCollectionsQuery,
+  ListCollectionsQueryVariables,
+} from "@/API";
 
 // COMPONENTS
-import { Image, Page } from "@/components/atomic";
-import { APIErrorMessage, Button } from "@/components/integrated";
+import { Image, Page, ActivityIndicator } from "@components/atomic";
+import { APIErrorMessage, Button } from "@components/integrated";
 import { Heading } from "@typography";
-import { ActivityIndicator } from "@components/atomic";
 
 const StoreCollectionPage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const { data, loading, error, refetch } = useQuery<
-    ListProductsQuery,
-    ListProductsQueryVariables
-  >(listProducts);
+  const { data: collectionData, error, loading, refetch } = useQuery<
+    ListCollectionsQuery,
+    ListCollectionsQueryVariables
+  >(listCollections);
 
-  const columns = useMemo<MRT_ColumnDef<CollectionType>[]>(
+  const columns = useMemo<MRT_ColumnDef<CupcakeType>[]>(
     () => [
       {
         accessorKey: "name",
-        header: "Collection Name",
+        header: "Cupcake Name",
       },
       {
         accessorKey: "url",
@@ -49,29 +51,28 @@ const StoreCollectionPage = () => {
         ],
       },
       {
-        accessorKey: "name",
-        header: "# Cupcakes",
+        accessorKey: "pcs",
+        header: "# Pieces",
+      },
+      {
+        accessorKey: "units",
+        header: "# Units",
+      },
+      {
+        accessorKey: "price",
+        header: "(ZAR) Price",
       },
       {
         accessorKey: "id",
         header: "Actions",
         columns: [
+
           {
             id: "id",
             header: "",
             Cell: ({ row }) => (
               <Button
-                onClick={() => navigate(`${row.original?.name || ""}/edit`)}
-                label="edit"
-              />
-            ),
-          },
-          {
-            id: "id",
-            header: "",
-            Cell: ({ row }) => (
-              <Button
-                onClick={() => navigate(row.original?.name || "")}
+                onClick={() => navigate(row.original?.id as string)}
                 label="view"
               />
             ),
@@ -82,8 +83,9 @@ const StoreCollectionPage = () => {
     [navigate]
   );
 
-  const cupcakes = data?.listProducts?.items.filter(
-    (product) => !product?._deleted
+  const collection = collectionData?.listCollections?.items.filter(
+    (collection) =>
+      collection?.name === params?.collectionName && !collection?._deleted
   );
 
   return (
@@ -94,10 +96,13 @@ const StoreCollectionPage = () => {
         className={`my-4`}
       />
       <Button
-        label="refetch"
+        label="refresh"
         onClick={() => refetch()}
         loading={loading}
-        success={cupcakes && cupcakes?.length > 0}
+        success={
+          collection?.[0]?.Products?.items &&
+          collection?.[0].Products.items.length > 0
+        }
         className={`mb-6`}
       />
 
@@ -109,10 +114,10 @@ const StoreCollectionPage = () => {
           onRetry={() => refetch()}
         />
       )}
-      {cupcakes && (
+      {collection?.[0]?.Products?.items && (
         //FIXME: types
         // @ts-ignore
-        <MaterialReactTable columns={columns} data={cupcakes || []} />
+        <MaterialReactTable columns={columns} data={collection?.[0]?.Products?.items || []}/>
       )}
     </Page>
   );

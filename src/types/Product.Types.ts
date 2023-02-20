@@ -2,17 +2,17 @@ import { ModelProductsCartConnection, ModelProductConnection,
  } from "@/API";
 
 export type CollectionType = {
-  __typename: "Collection";
-  id: string;
-  name: string;
-  url: string;
-  nofProducts: number;
-  Products?: ModelProductConnection | null;
-  createdAt: string;
-  updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null | undefined;
-  _lastChangedAt: number;
+  __typename: "Collection",
+  id: string,
+  name: string,
+  url: string,
+  nofProducts: number,
+  Products?: ModelProductConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type CupcakeType = {

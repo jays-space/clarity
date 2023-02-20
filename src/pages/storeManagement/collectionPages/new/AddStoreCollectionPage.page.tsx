@@ -43,7 +43,7 @@ const AddStoreCollectionPage = () => {
       <AddStoreCollectionPageTemplate
         control={control}
         handleSubmit={handleSubmit}
-        onAddCollectionFormSubmit={onAddCollectionFormSubmit}
+        collectionFormSubmit={onAddCollectionFormSubmit}
         loading={loading}
         success={!!data?.createCollection?.id}
       />

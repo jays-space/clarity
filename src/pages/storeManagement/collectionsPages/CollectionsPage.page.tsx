@@ -13,7 +13,7 @@ import { listCollections } from "../gql/queries.gql";
 // COMPONENTS
 import { ActivityIndicator, Image, Page } from "@/components/atomic";
 import { APIErrorMessage, Button } from "@/components/integrated";
-import { Heading } from "@typography";
+import { Heading, Text } from "@typography";
 
 const StoreCollectionsPage = () => {
   const navigate = useNavigate();
@@ -22,6 +22,10 @@ const StoreCollectionsPage = () => {
     ListCollectionsQuery,
     ListCollectionsQueryVariables
   >(listCollections);
+
+  const collections = data?.listCollections?.items.filter(
+    (collection) => !collection?._deleted
+  );
 
   const columns = useMemo<MRT_ColumnDef<CollectionType>[]>(
     () => [
@@ -47,8 +51,21 @@ const StoreCollectionsPage = () => {
         ],
       },
       {
-        accessorKey: "name",
-        header: "# Cupcakes",
+        accessorKey: "nofProducts",
+        header: "",
+        columns: [
+          {
+            id: "id",
+            header: "# of Cupcakes",
+            Cell: ({ row }) => (
+              <Text
+                copy={collections
+                  ?.find((collection) => collection?.id === row.original.id)
+                  ?.Products?.items.length.toString() as string}
+              />
+            ),
+          },
+        ],
       },
       {
         accessorKey: "id",
@@ -80,20 +97,12 @@ const StoreCollectionsPage = () => {
     [navigate]
   );
 
-  const collections = data?.listCollections?.items.filter(
-    (collection) => !collection?._deleted
-  );
-
   return (
     <Page>
-      <Heading
-        title="Cupcake Collections"
-        variant="h2"
-        className={`my-4`}
-        />
+      <Heading title="Cupcake Collections" variant="h2" className={`my-4`} />
 
       <Button
-        label="refetch"
+        label="refresh"
         onClick={() => refetch()}
         loading={loading}
         success={collections && collections?.length > 0}

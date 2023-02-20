@@ -5,12 +5,17 @@ import { useForm } from "react-hook-form";
 import { AddCupcakeFormType } from "./AddStoreCollectionItemPage.types";
 
 // GQL
-import { listCollections } from "../../gql/queries.gql";
+import {
+  listCollections,
+  updateCollection,
+} from "../../gql/queries.gql";
 import {
   CreateProductMutation,
   CreateProductMutationVariables,
   ListCollectionsQuery,
   ListCollectionsQueryVariables,
+  UpdateCollectionMutation,
+  UpdateCollectionMutationVariables,
 } from "@/API";
 import { createCupcake } from "../../gql/mutations.gql";
 
@@ -37,6 +42,11 @@ const AddStoreCollectionItemPage = () => {
     CreateProductMutationVariables
   >(createCupcake);
 
+  const [onCollectionUpdateStart] = useMutation<
+    UpdateCollectionMutation,
+    UpdateCollectionMutationVariables
+  >(updateCollection);
+
   const onAddCupcakeFormSubmit = async (formData: AddCupcakeFormType) => {
     onCupcakeCreateStart({
       variables: {
@@ -51,6 +61,19 @@ const AddStoreCollectionItemPage = () => {
         },
       },
     });
+
+    const collectionToUpdate = collectionsData?.listCollections?.items.find(
+      (item) => item?.id === formData.collection
+    );
+
+    onCollectionUpdateStart({
+      variables: {
+        input: {
+          id: formData.collection,
+          nofProducts: (collectionToUpdate?.nofProducts as number) + 1,
+        },
+      },
+    });
   };
 
   const collections = collectionsData?.listCollections?.items.filter(
@@ -61,7 +84,7 @@ const AddStoreCollectionItemPage = () => {
     <Page>
       <Heading title="Create new cupcake" variant="h2" />
       <Button
-        label="refetch"
+        label="refresh"
         onClick={() => collectionsRefetch()}
         loading={loading}
         success={collections && collections?.length > 0}
