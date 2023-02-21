@@ -1,4 +1,52 @@
-# Getting Started with Create React App
+# Clarity Assessment
+This is a MVP e-commerce app for a cupcake business. 
+
+The application enables shoppers to view cupcakes by cupcake collections as well as the individual cupcake. 
+Shoppers can also run a search for any cupcakes in stock based on the cupcake name and description.
+There is a mini-cart feature that enables shoppers to add/remove cupcakes to a shopping basket. 
+
+There is also an admin portal that enables admmin to CRUD cupcake collections and cupcakes.
+
+## What I would do differently
+ => Backend
+ ---- Test all CRUD fuctions BEFORE deploying and commiting the FE to them
+ 
+ => Frontend
+ ---- TDD (learning)
+ ---- Prioritise functionality and UX first, then style and UI
+
+## What I would given more time
+=> Search component: 
+---- on icon press focus on input
+---- click away listener (onClick away hide input)
+
+=> Home Page
+---- Popular/Recommended cakes component
+---- Add images
+
+=> Collection Item Page
+---- Pagination
+
+=> Cart
+---- CountItems on cart
+---- Total amount on cart
+
+=> StoreManagementPageTemplate
+---- Factorize
+
+=> General
+---- Better commenting for intellisense
+---- Navigation function that would build the path dynamically
+---- Move local templates to local page files, else global templates into global template file
+---- Add local image picking and implement S3 storage
+---- Create saperate portal for store management
+---- Create module file structure which would contain all services, gql, types, utils etc (business logic) for each page/screen
+
+=> Auth
+---- Implement admin/shopper accounts
+---- Implement full cart feature with checkout
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
