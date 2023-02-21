@@ -9,7 +9,22 @@
       "UnauthRoleName": "amplify-clarityassesment-staging-164437-unauthRole",
       "StackName": "amplify-clarityassesment-staging-164437",
       "StackId": "arn:aws:cloudformation:eu-west-2:910100023747:stack/amplify-clarityassesment-staging-164437/08bd0e30-ad50-11ed-a17d-0a837a31b980",
-      "AmplifyAppId": "d2suji5t02r8ie"
+      "AmplifyAppId": "d2suji5t02r8ie",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-clarityassesment-staging-164437-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "clarityAuth": {}
+      },
+      "function": {
+        "clarityAuthPostConfirmation": {
+          "deploymentBucketName": "amplify-clarityassesment-staging-164437-deployment",
+          "s3Key": "amplify-builds/clarityAuthPostConfirmation-5348787355574d79364c-build.zip"
+        }
+      },
+      "api": {
+        "clarityAssesment": {}
+      }
     }
   }
 }

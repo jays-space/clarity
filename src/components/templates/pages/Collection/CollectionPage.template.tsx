@@ -6,6 +6,8 @@ import { CupcakeType } from "@/types/Product.Types";
 // COMPONENTS
 import { Button, CollectionItemSelector } from "@/components/integrated";
 import { Heading } from "@/components/atomic/typography";
+import { useAppDispatch } from "@/store/hooks";
+import { addItem } from "@/store/modules/cart/cart.slice";
 
 interface ICollectionPageTemplate {
   products: CupcakeType[];
@@ -20,6 +22,7 @@ const CollectionTemplate = ({
 }: ICollectionPageTemplate) => {
   const navigate = useNavigate();
   const params = useParams();
+  const dispatch = useAppDispatch();
 
   const onCollectionItemSelect = (collectionItemID: string) => {
     navigate(`${collectionItemID}`, {
@@ -49,15 +52,15 @@ const CollectionTemplate = ({
         <div
           className={`flex flex-row justify-center items-center flex-wrap gap-6`}
         >
-          {products.map(({ id, name, url, price }) => {
+          {products.map((cupcake) => {
             return (
               <CollectionItemSelector
-                key={id}
-                name={name}
-                price={price}
-                src={url}
-                onAddToBagClick={() => {}}
-                onViewCupcakeClick={() => onCollectionItemSelect(id.toString())}
+                key={cupcake?.id}
+                name={cupcake?.name}
+                price={cupcake?.price}
+                src={cupcake?.url}
+                onAddToBagClick={() => dispatch(addItem(cupcake))}
+                onViewCupcakeClick={() => onCollectionItemSelect(cupcake?.id.toString())}
               />
             );
           })}

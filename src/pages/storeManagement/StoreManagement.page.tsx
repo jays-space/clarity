@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
 // CONFIG
 import { routerConfig } from "@/router";
@@ -25,4 +26,4 @@ const StoreManagement = () => {
   );
 };
 
-export default StoreManagement;
+export default withAuthenticator(StoreManagement);

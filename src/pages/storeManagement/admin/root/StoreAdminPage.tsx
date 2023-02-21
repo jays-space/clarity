@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { AdminUserType } from "@/types";
 
 // GQL
-import { listAdminUsers } from "../../gql/queries.gql";
+
 import { ListUsersQuery, ListUsersQueryVariables } from "@/API";
 
 // COMPONENTS
 import { ActivityIndicator, Page } from "@/components/atomic";
 import { Heading } from "@typography";
 import { APIErrorMessage, Button } from "@/components/integrated";
+import { listAdminUsers } from "../../gql/queries.gql";
 
 const StoreAdminPage = () => {
   const navigate = useNavigate();
@@ -49,13 +50,6 @@ const StoreAdminPage = () => {
                 onClick={() => navigate(`${row.original.id}/edit`)}
                 label="edit"
               />
-            ),
-          },
-          {
-            id: "id",
-            header: "",
-            Cell: ({ row }) => (
-              <Button onClick={() => navigate(row.original.id)} label="view" />
             ),
           },
         ],

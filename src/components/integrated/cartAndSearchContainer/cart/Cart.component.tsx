@@ -6,7 +6,8 @@ import { Icon } from "@/components/atomic";
 import { Text } from "@/components/atomic/typography";
 import { CartDropDown } from "../cartDropdown";
 import { CartItemType } from "@/types";
-import { useCartContext } from "@/contexts";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { toggleCartVisibility } from "@/store/modules/cart/cart.slice";
 
 interface ICart {
   cartItems: CartItemType[];
@@ -14,14 +15,15 @@ interface ICart {
 }
 
 const Cart = ({ cartItems, testID = "" }: ICart) => {
-  const { setIsCartItemVisible, isCartItemVisible } = useCartContext();
+  const dispatch = useAppDispatch();
+  const isCartItemVisible = useAppSelector((state) => state.cart.isVisible);
 
   return (
     <>
       <button
         className="relative p-2 my-1 rounded-full hover:bg-secondary-500 transition-colors duration-150 z-50"
         data-testid={testID}
-        onClick={() => setIsCartItemVisible((v) => !v)}
+        onClick={() => dispatch(toggleCartVisibility())}
       >
         <Icon name={IconNames.cart} color="light" />
 

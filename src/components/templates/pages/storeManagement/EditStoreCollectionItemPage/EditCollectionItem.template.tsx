@@ -1,13 +1,10 @@
 // COMPONENTS
-import { Image, Page, TextInput } from "@/components/atomic";
-import { Heading, Text } from "@/components/atomic/typography";
+import { TextInput } from "@/components/atomic";
+import { Text } from "@/components/atomic/typography";
 import { Button } from "@/components/integrated";
-import { useCartContext } from "@/contexts";
 import { AddCupcakeFormType } from "@/pages/storeManagement/collectionItemPages/new/AddStoreCollectionItemPage.types";
+import { useAppSelector } from "@/store/hooks";
 import { CollectionType } from "@/types";
-
-// UTILS
-import { numberUtils } from "@/utils";
 import { Control, UseFormHandleSubmit, UseFormSetValue } from "react-hook-form";
 
 interface IEditStoreCollectionItemPageTemplate {
@@ -29,13 +26,14 @@ const EditStoreCollectionItemPageTemplate = ({
   collections,
   setValue,
 }: IEditStoreCollectionItemPageTemplate) => {
-  const { cartItems, isCartItemVisible } = useCartContext();
+  const isCartItemVisible = useAppSelector((state) => state.cart.isVisible);
+  const isSearchVisible = useAppSelector((state) => state.search.isVisible);
 
   return (
     <>
       <div
         className={`flex flex-row gap-20 w-2/3 mt-12 ${
-          isCartItemVisible ? "-z-10" : "z-0"
+          isCartItemVisible || isSearchVisible ? "-z-10" : "z-0"
         }`}
       >
         <div className={`flex-1 px-4`}>

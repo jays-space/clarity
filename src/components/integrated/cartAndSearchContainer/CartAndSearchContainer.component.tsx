@@ -1,8 +1,7 @@
-import { useCartContext } from "@contexts";
-
 // COMPONENTS
 import { Cart } from "./cart";
 import { Search } from "./search";
+import { useAppSelector } from "@/store/hooks";
 
 interface ICartAndSearchContainer {
   testID?: string;
@@ -11,7 +10,7 @@ interface ICartAndSearchContainer {
 const CartAndSearchContainer = ({
   testID = "cart-and-search-container",
 }: ICartAndSearchContainer) => {
-  const { cartItems } = useCartContext();
+  const cartItems = useAppSelector((state) => state.cart.items);
 
   return (
     <div

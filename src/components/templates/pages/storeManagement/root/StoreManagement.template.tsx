@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from "react-router";
+import { Auth } from "aws-amplify";
 
 // COMPONENTS
 import { Button, StoreOptionPicker } from "@/components/integrated";
@@ -16,6 +17,15 @@ const StoreManagementPageTemplate = ({
 }: IStoreManagementPageTemplate) => {
   const navigate = useNavigate();
 
+  const signOutOfAdmin = async () => {
+    try {
+      await Auth.signOut({ global: true });
+      navigate("/");
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  };
+
   return (
     <>
       {!isStoreRootPath ? (
@@ -31,6 +41,8 @@ const StoreManagementPageTemplate = ({
               />
             );
           })}
+
+          <Button label={"SignOut"} onClick={signOutOfAdmin} />
         </div>
       ) : null}
 

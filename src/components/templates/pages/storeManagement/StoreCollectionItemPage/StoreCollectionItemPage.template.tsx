@@ -1,9 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import { useLocation, useNavigate } from "react-router-dom";
 
-// CONTEXTS
-import { useCartContext } from "@/contexts";
-
 // COMPONENTS
 import { ActivityIndicator, Image, Page } from "@/components/atomic";
 import { Heading, Text } from "@/components/atomic/typography";
@@ -11,6 +8,7 @@ import { APIErrorMessage, Button } from "@/components/integrated";
 
 // UTILS
 import { numberUtils } from "@/utils";
+import { useAppSelector } from "@/store/hooks";
 
 interface IStoreCollectionItemPageTemplate {
   description: string;
@@ -33,7 +31,8 @@ const StoreCollectionItemPageTemplate = ({
   pcs,
   refetch,
 }: IStoreCollectionItemPageTemplate) => {
-  const { cartItems, isCartItemVisible } = useCartContext();
+  const isCartItemVisible = useAppSelector((state) => state.cart.isVisible);
+  const isSearchVisible = useAppSelector((state) => state.search.isVisible);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,7 +42,7 @@ const StoreCollectionItemPageTemplate = ({
       {name && description && price && uri && (
         <div
           className={`flex flex-row gap-20 ${
-            isCartItemVisible ? "-z-10" : "z-0"
+            isCartItemVisible ||isSearchVisible ? "-z-10" : "z-0"
           } `}
         >
           <div className={`overflow-hidden rounded-3xl flex-1`}>
