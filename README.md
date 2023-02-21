@@ -70,6 +70,9 @@ I implemented the Atomic design system: atomic => integrated => templates.To beg
 - Implement full cart feature with checkout
 
 ## Known bugs
+### Cart
+- The cart initially has a product 
+
 ### Search bar
 - After selecting an option from the search dropdown, the dropdown does not hide. User must clear the search input to close the searchbar
 
