@@ -1,0 +1,31 @@
+TODO: With more time
+
+=> Search component: 
+---- on icon press focus on input
+---- click away listener (onclick away hide input)
+
+=> Home Page
+---- Popular/Recommended cakes component
+---- Add images
+
+=> Collection Item Page
+---- Pagination
+
+=> Cart
+---- CountItems on cart
+---- Total amount on cart
+
+=> StoreManagementPageTemplate
+---- Factorize
+
+=> General
+---- Better commenting for intellisense
+---- Navigatetion fuction that would build the path dynamically
+---- Move local templates to local page files, else global templates into global template file
+---- Add local image picking and implement S3 storage
+---- Create seperate portal for store management
+---- Create module file structure which would contain all services, gql, types, utils etc (business logic) for each page/screen
+
+=> Auth
+---- Implement admin/shopper accounts
+---- Implement full cart feature with checkout

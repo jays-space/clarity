@@ -1,0 +1,67 @@
+type Cart @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  User: User @belongsTo
+  Products: [Product] @manyToMany(relationName: "CartProduct")
+}
+
+type Collection @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  url: AWSURL!
+  Products: [Product] @hasMany(indexName: "byCollection", fields: ["id"])
+  nofProducts: Int!
+}
+
+type Product @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  units: Int!
+  pcs: Int!
+  url: AWSURL!
+  carts: [Cart] @manyToMany(relationName: "CartProduct")
+  collectionID: ID! @index(name: "byCollection")
+  Collection: Collection @belongsTo(fields: ["collectionID"])
+}
+
+type Coords {
+  lat: Float!
+  lng: Float!
+}
+
+type Address {
+  city: String
+  country: String
+  fullAddress: String!
+  coords: Coords
+  province: String
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String
+  email: AWSEmail!
+  hasChildren: Boolean!
+  physicalAddress: Address
+  isAdmin: Boolean!
+  dob: AWSDate
+  Cart: Cart @hasOne
+  Children: [Child] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+enum Gender {
+  FEMALE
+  MALE
+}
+
+type Child @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String!
+  lastName: String
+  dob: AWSDate!
+  gender: Gender
+  userID: ID! @index(name: "byUser")
+  User: User @belongsTo(fields: ["userID"])
+}

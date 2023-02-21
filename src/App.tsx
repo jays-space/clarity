@@ -1,17 +1,25 @@
-import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { store, persistor } from './store';
+import { PersistGate } from "redux-persist/integration/react";
+import '@aws-amplify/ui-react/styles.css';
+
+// CONFIG
+import { ApolloClient } from "@apolloConfig";
+import { CartContextProvider } from "@contexts";
+import { router } from "@/router";
 
 function App() {
   return (
-    <>
-      <h1 className="text-4xl font-cursive">Cupcake Factory</h1>
-      <p className="text-xs font-raleway">MADE AT HOME</p>
-
-      <h3 className="font-raleway">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum,
-        rerum possimus. Nulla nemo ratione temporibus laborum iusto sunt eum
-        assumenda.
-      </h3>
-    </>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ApolloClient>
+          <CartContextProvider>
+            <RouterProvider router={router} />
+          </CartContextProvider>
+        </ApolloClient>
+      </PersistGate>
+    </Provider>
   );
 }
 

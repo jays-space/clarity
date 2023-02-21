@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@router": ["./src/router"],
+      "@components/atomic": ["./src/components/atomic"],
+      "@typography": ["./src/components/atomic/typography"],
+      "@components/integrated": ["./src/components/integrated"],
+      "@components/templates": ["./src/components/templates"],
+      "@pages": ["./src/pages"],
+      "@types": ["./src/types"],
+      "@utils": ["./src/utils"],
+      "@contexts": ["./src/contexts"],
+      "@apolloConfig": ["./src/apollo"],
+    }
+  }
+}

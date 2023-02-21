@@ -1,0 +1,1 @@
+export { StoreManagementPageTemplate } from "./root";
