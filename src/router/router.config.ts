@@ -95,4 +95,8 @@ export const routerConfig: RoutesType = {
     label: "edit admin",
     path: `${StoreRoot}/admins/:adminID`,
   },
+  Checkout: {
+    label: "checkout",
+    path: `/checkout`,
+  },
 };

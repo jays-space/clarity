@@ -2,7 +2,7 @@ TODO: With more time
 
 => Search component: 
 ---- on icon press focus on input
----- click away listener (onclick away hide input)
+---- click away listener (onClick away hide input)
 
 => Home Page
 ---- Popular/Recommended cakes component
@@ -20,10 +20,10 @@ TODO: With more time
 
 => General
 ---- Better commenting for intellisense
----- Navigatetion fuction that would build the path dynamically
+---- Navigation function that would build the path dynamically
 ---- Move local templates to local page files, else global templates into global template file
 ---- Add local image picking and implement S3 storage
----- Create seperate portal for store management
+---- Create separate portal for store management
 ---- Create module file structure which would contain all services, gql, types, utils etc (business logic) for each page/screen
 
 => Auth

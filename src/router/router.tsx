@@ -10,6 +10,7 @@ import {
   AddStoreCollectionItemPage,
   AddStoreCollectionPage,
   CartPage,
+  CheckoutPage,
   CollectionItemPage,
   CollectionPage,
   CollectionsPage,
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
             element: <StoreAdminItemPage />,
           },
         ],
+      },
+      {
+        path: routerConfig.Checkout.path,
+        element: <CheckoutPage />,
       },
     ],
   },

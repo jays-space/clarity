@@ -83,6 +83,13 @@ const Search = ({ testID = "" }: ISearch) => {
     }
   }, [searchResults, dispatch]);
 
+  useEffect(() => {
+    if (searchResults.length <= 0) {
+      setSearchParam("");
+      setIsInputVisible(false);
+    }
+  }, [searchResults]);
+
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchParam(event.target.value);
     dispatch(search(event.target.value));

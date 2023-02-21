@@ -16,6 +16,16 @@ interface ICart {
 
 const Cart = ({ cartItems, testID = "" }: ICart) => {
   const dispatch = useAppDispatch();
+  const selectCartItemsCount = cartItems.reduce(
+    (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
+    0
+  );
+  const selectCartItemsTotal = cartItems.reduce(
+    (accumulatedPrice, cartItem) =>
+      accumulatedPrice + cartItem.quantity * cartItem.price,
+    0
+  );
+
   const isCartItemVisible = useAppSelector((state) => state.cart.isVisible);
 
   return (
@@ -28,11 +38,17 @@ const Cart = ({ cartItems, testID = "" }: ICart) => {
         <Icon name={IconNames.cart} color="light" />
 
         <div className="absolute flex -bottom-1 -right-1 w-5 h-5 bg-gray-800 text-white items-center justify-center rounded-full">
-          <Text copy={cartItems.length.toString()} size="xs" color="light" />
+          <Text
+            copy={selectCartItemsCount.toString()}
+            size="xs"
+            color="light"
+          />
         </div>
       </button>
 
-      {isCartItemVisible && <CartDropDown cartItems={cartItems} />}
+      {isCartItemVisible && (
+        <CartDropDown cartItems={cartItems} total={selectCartItemsTotal} />
+      )}
     </>
   );
 };
