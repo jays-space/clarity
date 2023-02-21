@@ -1,11 +1,25 @@
 # Clarity Assessment
+
+## Overview
 This is a MVP e-commerce app for a cupcake business. 
 
 The application enables shoppers to view cupcakes by cupcake collections as well as the individual cupcake. 
 Shoppers can also run a search for any cupcakes in stock based on the cupcake name and description.
-There is a mini-cart feature that enables shoppers to add/remove cupcakes to a shopping basket. 
+There is a persisted mini-cart feature that enables shoppers to add/remove cupcakes to a shopping basket. 
 
 There is also an admin portal that enables admmin to CRUD cupcake collections and cupcakes.
+
+## Design and Architecture
+
+My preference is to use typescript in projects. I tried to setout the app in features as opposed to screens, i.e.: should there be more services to be added, I would introduce modules that would contain all logic for a given set of features interacting with a specific slice of the app. Each module would contain the types, utils, business logic etc for the given slice.
+
+Outside of services/modules are folders that contain globally used logic.
+
+I initally used to employ Context API to manage cart state. This was switched to a redux architecture as the cart state became more complex. I have left the context files in to demonstrate my ability with ContextApi.
+
+Implementing aliases helped in readability.
+
+I implemented the Atomic design system: atomic => integrated => templates.To begin to add more consistency in the styles, I used some theme files and added a bit of platform specific styles where needed.
 
 ## What I would do differently
 ### Backend
@@ -45,6 +59,17 @@ There is also an admin portal that enables admmin to CRUD cupcake collections an
 ### Auth
 - Implement admin/shopper accounts
 - Implement full cart feature with checkout
+
+## What I would have done given more time
+- Tests 
+- Further factorized business logic
+- Moved the search logic to the backend as a micro service
+- Synchronized the cart to the DB as the user interacts with the cart
+- Added a cart and checkout page
+- Added shopper auth (account creation to persist the shopper experience across sessions)
+- Added a wishlist
+- Moved the admin portal to a dedicated site
+- More theming and Responsive design implementation
 
 ## Getting Started with Create React App
 
