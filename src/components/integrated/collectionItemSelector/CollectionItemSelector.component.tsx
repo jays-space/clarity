@@ -5,7 +5,7 @@ import { Button } from "@components/integrated";
 
 // UTILS
 import { numberUtils } from "@/utils";
-import { useCartContext } from "@/contexts";
+import { useAppSelector } from "@/store/hooks";
 
 interface ICollectionItemSelector {
   src: string;
@@ -22,12 +22,13 @@ const CollectionItemSelector = ({
   onAddToBagClick,
   onViewCupcakeClick,
 }: ICollectionItemSelector) => {
-  const { isCartItemVisible } = useCartContext();
+  const isCartItemVisible = useAppSelector((state) => state.cart.isVisible);
+  const isSearchVisible = useAppSelector((state) => state.search.isVisible);
 
   return (
     <div
       className={`group rounded-3xl border max-w-xs ${
-        isCartItemVisible ? "-z-10" : "-z-0" 
+        isCartItemVisible || isSearchVisible ? "-z-10" : "-z-0"
       } 
     `}
     >

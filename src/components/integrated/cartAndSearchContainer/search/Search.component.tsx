@@ -5,12 +5,18 @@ import { IconNames } from "@/components/atomic/icon/iconNames.types";
 
 // COMPONENTS
 import { Icon } from "@/components/atomic";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { ListProductsCartsQueryVariables, ListProductsQuery } from "@/API";
 import { CupcakeType } from "@/types";
 import { SearchDropdown } from "./searchDropdown";
 import { useCartContext } from "@/contexts";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  search,
+  setSearchDataSet,
+  toggleSearchVisibility,
+} from "@/store/modules/search/search.slice";
 
 interface ISearch {
   testID?: string;
@@ -31,7 +37,7 @@ export const listProducts = gql`
         units
         pcs
         url
-        Collection{
+        Collection {
           id
           name
         }
@@ -49,12 +55,11 @@ export const listProducts = gql`
 `;
 
 const Search = ({ testID = "" }: ISearch) => {
-  const { setIsCartItemVisible, isCartItemVisible } = useCartContext();
+  const searchResults = useAppSelector((state) => state.search.results);
+  const dispatch = useAppDispatch();
 
   const [isInputVisible, setIsInputVisible] = useState<boolean>(false);
   const [searchParam, setSearchParam] = useState<string>("");
-  const [searchResults, setSearchResults] =
-    useState<Fuse.FuseResult<CupcakeType | null>[]>();
 
   const toggleInputVisibility = () => {
     setIsInputVisible((v) => !v);
@@ -66,20 +71,21 @@ const Search = ({ testID = "" }: ISearch) => {
 
   const allCupcakes = data?.listProducts?.items;
 
+  useEffect(() => {
+    dispatch(setSearchDataSet(allCupcakes));
+  }, [allCupcakes, dispatch]);
+
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      dispatch(toggleSearchVisibility(true));
+    } else {
+      dispatch(toggleSearchVisibility(false));
+    }
+  }, [searchResults, dispatch]);
+
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchParam(event.target.value);
-    setIsCartItemVisible(event.target.value.length > 0 ? true : false)
-
-    const options = {
-      includeScore: true,
-      // Search in `name` and in `description` per cupcake
-      keys: ["name", "description"],
-    };
-
-    if (!allCupcakes) return;
-    const fuse = new Fuse(allCupcakes || [], options);
-    const results = fuse.search(event.target.value);
-    setSearchResults(results);
+    dispatch(search(event.target.value));
   };
 
   return (
