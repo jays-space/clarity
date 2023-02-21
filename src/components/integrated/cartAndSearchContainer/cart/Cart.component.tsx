@@ -30,7 +30,7 @@ const Cart = ({ cartItems, testID = "" }: ICart) => {
         </div>
       </button>
 
-      {isCartItemVisible && <CartDropDown cartItems={cartItems} />}
+      {/* {isCartItemVisible && <CartDropDown cartItems={cartItems} />} */}
     </>
   );
 };

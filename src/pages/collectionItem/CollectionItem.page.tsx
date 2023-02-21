@@ -4,8 +4,6 @@ import { Page } from "@/components/atomic";
 import { CollectionItemTemplate } from "@/components/templates/pages/CollectionItem";
 import { useCartContext } from "@/contexts";
 
-// MOCK
-import { CollectionItemPageMock } from "@/mock/CollectionItemPage.mock";
 import { CartItemType } from "@/types";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
@@ -14,9 +12,6 @@ import { getCupcake } from "../collections/gql/queries.gql";
 const CollectionItemPage = () => {
   const { setCartItems, cartItems } = useCartContext();
   const params = useParams();
-
-  console.log(params);
-  
 
   const { data, loading, error, refetch } = useQuery<
     GetProductQuery,
