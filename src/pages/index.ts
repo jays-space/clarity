@@ -9,6 +9,7 @@ export { PrivacyPolicyPage } from "./privacyPolicy";
 export { SignInPage } from "./signIn";
 export { SignUpPage } from "./signUp";
 export { TermsAndConditionsPage } from "./termsAndConditions";
+export { CheckoutPage } from "./checkout";
 
 export { StoreManagementLayout } from "./storeManagement";
 

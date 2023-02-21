@@ -19,7 +19,7 @@
       "function": {
         "clarityAuthPostConfirmation": {
           "deploymentBucketName": "amplify-clarityassesment-staging-164437-deployment",
-          "s3Key": "amplify-builds/clarityAuthPostConfirmation-5348787355574d79364c-build.zip"
+          "s3Key": "amplify-builds/clarityAuthPostConfirmation-30775367684c59707944-build.zip"
         }
       },
       "api": {

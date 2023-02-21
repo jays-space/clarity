@@ -25,12 +25,20 @@ export const searchSlice = createSlice({
     search: (state, action) => {
       state.results = runSearch(state.data, action.payload);
     },
+
+    clearSearchResults: (state) => {
+      state.results = [];
+    },
   },
 });
 
 // Export actions
-export const { search, setSearchDataSet, toggleSearchVisibility } =
-  searchSlice.actions;
+export const {
+  search,
+  setSearchDataSet,
+  toggleSearchVisibility,
+  clearSearchResults,
+} = searchSlice.actions;
 
 // Export reducer
 const searchReducer = searchSlice.reducer;

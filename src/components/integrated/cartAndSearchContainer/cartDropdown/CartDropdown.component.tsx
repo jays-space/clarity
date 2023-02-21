@@ -4,13 +4,17 @@ import { CartItem } from "./cartItem";
 import { CartItemType } from "@/types";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleCartVisibility } from "@/store/modules/cart/cart.slice";
+import { Text } from "@/components/atomic/typography";
+import { useNavigate } from "react-router";
 
 interface ICartDropdown {
   cartItems: CartItemType[];
+  total: number;
 }
 
-const CartDropdown = ({ cartItems }: ICartDropdown) => {
+const CartDropdown = ({ cartItems, total }: ICartDropdown) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   return (
     <div
@@ -26,13 +30,17 @@ const CartDropdown = ({ cartItems }: ICartDropdown) => {
         )}
       </div>
 
-      <Button
-        label="checkout"
-        onClick={() => {
-          // history.push("/checkout");
-          dispatch(toggleCartVisibility());
-        }}
-      />
+      <Text copy={`Basket Total: R${total}`} bold size="lg" className="mb-2" />
+
+      <div className="flex flex-row justify-center items-center">
+        <Button
+          label="checkout"
+          onClick={() => {
+            navigate("/checkout");
+            dispatch(toggleCartVisibility());
+          }}
+        />
+      </div>
     </div>
   );
 };
