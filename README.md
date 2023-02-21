@@ -37,9 +37,8 @@ I implemented the Atomic design system: atomic => integrated => templates.To beg
 - Further factorized business logic
 - Moved the search logic to the backend as a micro service
 - Synchronized the cart to the DB as the user interacts with the cart
-- Added a cart and checkout page
 - Added shopper auth (account creation to persist the shopper experience across sessions)
-- Added a wishlist
+- Added wishlist features
 - Moved the admin portal to a dedicated site
 - More theming and Responsive design implementation
 - Better commenting for intellisense
@@ -60,10 +59,6 @@ I implemented the Atomic design system: atomic => integrated => templates.To beg
 ### Collection Item Page
 - Pagination
 
-### Cart
-- CountItems on cart
-- Total amount on cart
-
 ### StoreManagementPageTemplate
 - Factorize
 
@@ -74,9 +69,6 @@ I implemented the Atomic design system: atomic => integrated => templates.To beg
 ## Known bugs
 ### Cart
 - The cart initially has a product 
-
-### Search bar
-- After selecting an option from the search dropdown, the dropdown does not hide. User must clear the search input to close the searchbar
 
 ## Getting Started with Create React App
 
