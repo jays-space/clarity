@@ -29,7 +29,24 @@ I implemented the Atomic design system: atomic => integrated => templates.To beg
  - TDD (learning)
  - Prioritise functionality and UX first, then style and UI
 
-## What I would given more time
+## What I would have done given more time
+### General
+- Tests 
+- Further factorized business logic
+- Moved the search logic to the backend as a micro service
+- Synchronized the cart to the DB as the user interacts with the cart
+- Added a cart and checkout page
+- Added shopper auth (account creation to persist the shopper experience across sessions)
+- Added a wishlist
+- Moved the admin portal to a dedicated site
+- More theming and Responsive design implementation
+- Better commenting for intellisense
+- Navigation function that would build the path dynamically
+- Move local templates to local page files, else global templates into global template file
+- Add local image picking and implement S3 storage
+- Create saperate portal for store management
+- Create module file structure which would contain all services, gql, types, utils etc (business logic) for each page/screen
+
 ### Search component: 
 - on icon press focus on input
 - click away listener (onClick away hide input)
@@ -48,28 +65,13 @@ I implemented the Atomic design system: atomic => integrated => templates.To beg
 ### StoreManagementPageTemplate
 - Factorize
 
-### General
-- Better commenting for intellisense
-- Navigation function that would build the path dynamically
-- Move local templates to local page files, else global templates into global template file
-- Add local image picking and implement S3 storage
-- Create saperate portal for store management
-- Create module file structure which would contain all services, gql, types, utils etc (business logic) for each page/screen
-
 ### Auth
 - Implement admin/shopper accounts
 - Implement full cart feature with checkout
 
-## What I would have done given more time
-- Tests 
-- Further factorized business logic
-- Moved the search logic to the backend as a micro service
-- Synchronized the cart to the DB as the user interacts with the cart
-- Added a cart and checkout page
-- Added shopper auth (account creation to persist the shopper experience across sessions)
-- Added a wishlist
-- Moved the admin portal to a dedicated site
-- More theming and Responsive design implementation
+## Known bugs
+### Search bar
+- After selecting an option from the search dropdown, the dropdown does not hide. User must clear the search input to close the searchbar
 
 ## Getting Started with Create React App
 
