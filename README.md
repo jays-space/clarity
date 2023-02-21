@@ -1,6 +1,7 @@
 # Clarity Assessment
 
 ## Overview
+test site: https://main.d2suji5t02r8ie.amplifyapp.com/
 This is a MVP e-commerce app for a cupcake business. 
 
 The application enables shoppers to view cupcakes by cupcake collections as well as the individual cupcake. 
