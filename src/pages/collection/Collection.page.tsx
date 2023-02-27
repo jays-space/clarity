@@ -6,8 +6,7 @@ import { ListCollectionsQuery, ListCollectionsQueryVariables } from "@/API";
 
 // COMPONENTS
 import { CollectionTemplate } from "@/components/templates/pages/Collection";
-import { ActivityIndicator, Page } from "@/components/atomic";
-import { APIErrorMessage } from "@/components/integrated";
+import { Page } from "@/components/atomic";
 import { listCollections } from "../collections/gql/queries.gql";
 
 const CollectionPage = () => {
@@ -30,15 +29,9 @@ const CollectionPage = () => {
         // @ts-ignore
         products={collection?.[0]?.Products?.items || []}
         refetch={refetch}
+        error={error}
+        loading={loading}
       />
-      {loading && <ActivityIndicator />}
-      {error && (
-        <APIErrorMessage
-          title={error?.name || "Error"}
-          message={error?.message || "Error"}
-          onRetry={() => refetch()}
-        />
-      )}
     </Page>
   );
 };

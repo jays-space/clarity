@@ -7,15 +7,19 @@ interface IAPIErrorMessage {
   title: string;
   message: string;
   onRetry?: () => void;
+  className?: string;
 }
 
 const APIErrorMessage = ({
   message,
   onRetry = () => {},
   title,
+  className ="",
 }: IAPIErrorMessage) => {
   return (
-    <div>
+    <div
+      className={`w-full flex flex-col justify-center items-center ${className}`}
+    >
       <Icon name={IconNames.apiError} className={`text-primary-600`} />
       <Text copy={title} />
       <Text copy={message} />

@@ -9,11 +9,12 @@ import { getAlignment } from "./Page.utils";
 interface IPage {
   children: ReactNode;
   align?: PageAlignmentType;
+  fullWidth?: boolean;
 }
 
-const Page = ({ children, align = "center" }: IPage) => {
+const Page = ({ children, align = "center", fullWidth = false }: IPage) => {
   return (
-    <div className={`w-full flex flex-col items-e ${getAlignment(align)}`}>
+    <div className={`${fullWidth ? "w-full" : "w-full 2xl:w-10/12"} flex flex-col ${getAlignment(align)}`}>
       {children}
     </div>
   );

@@ -10,7 +10,8 @@ import { Icon } from "@/components/atomic";
 import { IconNames } from "@/components/atomic/icon/iconNames.types";
 
 interface IButton {
-  label: string;
+  label?: string;
+  icon?: IconNames;
   variant?: ButtonVariantTypes;
   onClick: () => void;
   className?: string;
@@ -21,6 +22,7 @@ interface IButton {
 
 const Button = ({
   label,
+  icon,
   variant = "default",
   onClick,
   className = "",
@@ -28,13 +30,30 @@ const Button = ({
   loading,
   success,
 }: IButton) => {
-  return (
+  return icon && !label ? (
     <button
       className={`${className} ${
         loading ? "cursor-not-allowed" : ""
       } ${getButtonVariantStyles(
         variant
-      )} flex flex-row justify-between items-center`}
+      )} px-4 py-4 group flex flex-row justify-center items-center font-body rounded-full`}
+      onClick={onClick}
+      disabled={disabled || loading}
+    >
+      <Icon
+        name={icon}
+        className={` ${
+          variant === "primary" ? "!text-white" : "!text-primary-600"
+        } ${loading ? "animate-spin" : "animate-none"}`}
+      />
+    </button>
+  ) : !icon && label ? (
+    <button
+      className={`${className} ${
+        loading ? "cursor-not-allowed" : ""
+      } ${getButtonVariantStyles(
+        variant
+      )} px-8 py-4 group flex flex-row justify-between items-center font-body`}
       onClick={onClick}
       disabled={disabled || loading}
     >
@@ -59,11 +78,15 @@ const Button = ({
         size="xs"
         uppercase
         bold
-        className="tracking-widest"
+        className={`tracking-widest font-body ${
+          variant === "primary"
+            ? "underline decoration-primary-300 group-hover:decoration-white underline-offset-4 decoration-2"
+            : ""
+        } transition-color duration-300`}
         color={getButtonTextColor(variant)}
       />
     </button>
-  );
+  ) : null;
 };
 
 export default Button;

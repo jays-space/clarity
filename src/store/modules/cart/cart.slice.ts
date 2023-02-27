@@ -13,6 +13,10 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setCartVisibilityHidden: (state) => {
+      state.isVisible = false;
+    },
+
     toggleCartVisibility: (state) => {
       state.isVisible = !state.isVisible;
     },
@@ -34,8 +38,13 @@ export const cartSlice = createSlice({
 });
 
 // Export actions
-export const { addItem, clearItemFromCart, removeItem, toggleCartVisibility } =
-  cartSlice.actions;
+export const {
+  addItem,
+  clearItemFromCart,
+  removeItem,
+  toggleCartVisibility,
+  setCartVisibilityHidden,
+} = cartSlice.actions;
 
 // Export reducer
 const cartReducer = cartSlice.reducer;

@@ -25,12 +25,12 @@ const CollectionSelector = ({
         <Image
           src={src}
           alt={alt}
-          className={`max-w-xs aspect-square object-none object-bottom opacity-90 group-hover:scale-110 transition-transform duration-700`}
+          className={`w-60 aspect-square object-cover opacity-90 group-hover:scale-110 transition-transform duration-700`}
         />
       </div>
       {/* type */}
       <div
-        className={`absolute bottom-0 left-0 right-0 top-0 w-full rounded-3xl py-2 px-3 flex justify-center items-center bg-opacity-50 group-hover:bg-opacity-70 bg-gray-700 hover:bg-primary-400 duration-700`}
+        className={`absolute bottom-0 left-0 right-0 top-0 w-full rounded-3xl py-2 px-3 flex justify-center items-center bg-opacity-40 group-hover:bg-opacity-60 bg-black hover:bg-fuchsia-300 duration-700`}
       >
         <Heading
           title={label}

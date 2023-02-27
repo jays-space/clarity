@@ -6,4 +6,6 @@ export enum IconNames {
   "loading" = "loading",
   "apiError" = "apiError",
   "success" = "success",
+  "add" = "add",
+  "refresh" = "refresh",
 }

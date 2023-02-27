@@ -5,12 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { CollectionType } from "@/types";
 
 // COMPONENTS
-import { APIErrorMessage, Button, CollectionSelector } from "@components/integrated";
+import {
+  APIErrorMessage,
+  Button,
+  CollectionSelector,
+} from "@components/integrated";
 import { Heading } from "@/components/atomic/typography";
 import { ActivityIndicator } from "@/components/atomic";
 
 // UTILS
 import { stringUtils } from "@/utils";
+import { IconNames } from "@/components/atomic/icon/iconNames.types";
 
 interface ICollectionsTemplate {
   loading: boolean;
@@ -32,16 +37,27 @@ const CollectionsTemplate = ({
   };
 
   return (
-    <>
-      <div className={`w-/12 my-6`}>
-        <Heading title="cupcakes" variant="h2" />
-        <Button label="refresh" onClick={() => refetch()} />
+    <div className={`min-h-screen flex flex-col items-center`}>
+      <div className={`w-/12 my-6 flex flex-col items-center`}>
+        <Heading title="collections" variant="h2" />
+        {!loading && (
+          <Button
+            icon={IconNames.refresh}
+            onClick={() => refetch()}
+            loading={loading}
+          />
+        )}
       </div>
 
       <div
-        className={`flex flex-row justify-center items-center flex-wrap gap-6 w-9/12`}
+        className={`flex flex-row justify-center items-center flex-wrap gap-6 w-full h-full`}
       >
-        {loading && <ActivityIndicator />}
+        {loading && (
+          <div className="w-full h-screen flex justify-center items-center -mt-40">
+            <ActivityIndicator />
+          </div>
+        )}
+
         {error && (
           <APIErrorMessage
             title={error.name}
@@ -67,7 +83,7 @@ const CollectionsTemplate = ({
             );
           })}
       </div>
-    </>
+    </div>
   );
 };
 

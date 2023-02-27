@@ -10,6 +10,7 @@ interface IHeading {
   uppercase?: boolean;
   testID?: string;
   className?: string;
+  dataText?: string;
 }
 
 const Heading = ({
@@ -18,6 +19,7 @@ const Heading = ({
   uppercase = false,
   testID = "",
   className = "",
+  dataText = "",
 }: IHeading) => {
   switch (variant) {
     case "h1": {
@@ -26,6 +28,7 @@ const Heading = ({
           className={`${getHeadingStyles(variant)} ${isUpperCase(
             uppercase
           )} ${className}`}
+          data-text={dataText}
           data-testid={testID}
         >
           {title}
@@ -39,6 +42,7 @@ const Heading = ({
           className={`${getHeadingStyles(variant)} ${isUpperCase(
             uppercase
           )} ${className}`}
+          data-text={dataText}
           data-testid={testID}
         >
           {title}
@@ -52,6 +56,7 @@ const Heading = ({
           className={`${getHeadingStyles(variant)} ${isUpperCase(
             uppercase
           )} ${className}`}
+          data-text={dataText}
           data-testid={testID}
         >
           {title}
@@ -65,6 +70,7 @@ const Heading = ({
           className={`${getHeadingStyles(variant)} ${isUpperCase(
             uppercase
           )} ${className}`}
+          data-text={dataText}
           data-testid={testID}
         >
           {title}
@@ -78,6 +84,7 @@ const Heading = ({
           className={`${getHeadingStyles(variant)} ${isUpperCase(
             uppercase
           )} ${className}`}
+          data-text={dataText}
           data-testid={testID}
         >
           {title}
@@ -91,6 +98,7 @@ const Heading = ({
           className={`${getHeadingStyles(variant)} ${isUpperCase(
             uppercase
           )} ${className}`}
+          data-text={dataText}
           data-testid={testID}
         >
           {title}

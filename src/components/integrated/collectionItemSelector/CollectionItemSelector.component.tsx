@@ -6,11 +6,13 @@ import { Button } from "@components/integrated";
 // UTILS
 import { numberUtils } from "@/utils";
 import { useAppSelector } from "@/store/hooks";
+import { IconNames } from "@/components/atomic/icon/iconNames.types";
 
 interface ICollectionItemSelector {
   src: string;
   name: string;
   price: number;
+  pcs: number;
   onAddToBagClick: () => void;
   onViewCupcakeClick: () => void;
 }
@@ -19,6 +21,7 @@ const CollectionItemSelector = ({
   src,
   name,
   price,
+  pcs,
   onAddToBagClick,
   onViewCupcakeClick,
 }: ICollectionItemSelector) => {
@@ -27,52 +30,71 @@ const CollectionItemSelector = ({
 
   return (
     <div
-      className={`group rounded-3xl border max-w-xs ${
-        isCartItemVisible || isSearchVisible ? "-z-10" : "-z-0"
-      } 
-    `}
+      className={`border border-fuchsia-300 border-opacity-30 rounded-3xl
+      hover:drop-shadow-[3px_5px_3px_rgba(240,171,252,0.35)] transform duration-300`}
     >
-      {/* image */}
-      <div
-        className={`overflow-hidden rounded-t-3xl group-hover:bg-primary-600 transition-color duration-300`}
-      >
-        <Image
-          src={src}
-          alt={name}
-          className={`max-w-xs aspect-video object-none object-center opacity-90 group-hover:scale-110 hover:opacity-60 transition-transform duration-700`}
-        />
-      </div>
-      <div className={`px-6 py-4`}>
-        <div className={`flex flex-col mb-4`}>
-          {/* name */}
-          <Text copy={name} capitalize bold className={`whitespace-normal`} />
-
-          {/* price */}
-          <Text
-            copy={`${numberUtils.convertNumberToLocaleCurrency(price)}`}
-            capitalize
-            bold
-            size="lg"
-            className={`mt-4`}
+      <div className={`bg-white rounded-3xl`}>
+        {/* image */}
+        <div className={`relative overflow-hidden rounded-t-2xl`}>
+          <Image
+            src={src}
+            alt={name}
+            className={`min-w-full h-52 object-cover opacity-90`}
           />
-          {/* pcs */}
-          <Text copy={`6 pcs`} uppercase bold />
+
+          <div
+            className={`absolute bottom-0 left-0 right-0 top-0 w-full rounded-t-2xl bg-opacity-40 `}
+          />
         </div>
 
-        {/* add to cart */}
-        <div className={`flex flex-row justify-between`}>
-          <Button
-            variant="secondary"
-            label="view"
-            onClick={onViewCupcakeClick}
-            className={`z-400`}
-          />
-          <Button
-            variant="primary"
-            label="add to bag"
-            onClick={onAddToBagClick}
-            className={`z-10`}
-          />
+        <div
+          className={`rounded-3xl w-[320px] h-[220px]  ${
+            isCartItemVisible || isSearchVisible ? "-z-10" : "-z-0"
+          } 
+    `}
+        >
+          <div
+            className={`px-6 py-4 w-full flex flex-col justify-around items-start h-[13rem]`}
+          >
+            <div className={`w-full flex flex-col flex-1 justify-between mb-4`}>
+              {/* name */}
+              <Text
+                copy={name}
+                capitalize
+                className={`whitespace-normal`}
+                size="xl"
+              />
+
+              <div>
+                {/* price */}
+                <Text
+                  copy={`${numberUtils.convertNumberToLocaleCurrency(price)}`}
+                  capitalize
+                  size="xl"
+                  bold
+                  className={`mt-4`}
+                />
+                {/* pcs */}
+                <Text copy={`/${pcs} pcs`} size="xs" className={`ml-1`} />
+              </div>
+            </div>
+
+            {/* add to cart */}
+            <div className={`flex flex-row justify-between w-full gap-4`}>
+              <Button
+                variant="secondary"
+                label="view"
+                onClick={onViewCupcakeClick}
+                className={`z-10 flex-1 !justify-center`}
+              />
+              <Button
+                variant="primary"
+                icon={IconNames.add}
+                onClick={onAddToBagClick}
+                className={`z-10`}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
