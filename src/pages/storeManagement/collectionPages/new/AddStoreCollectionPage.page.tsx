@@ -16,9 +16,11 @@ import { Page } from "@/components/atomic";
 import { Heading } from "@typography";
 import { AddStoreCollectionPageTemplate } from "@/components/templates";
 import { APIErrorMessage } from "@/components/integrated";
+import { useNavigate } from "react-router-dom";
 
 const AddStoreCollectionPage = () => {
   const { control, handleSubmit } = useForm<AddCollectionFormType>();
+  const navigate = useNavigate();
 
   const [onCollectionCreateStart, { data, loading, error }] = useMutation<
     CreateCollectionMutation,
@@ -26,15 +28,20 @@ const AddStoreCollectionPage = () => {
   >(createCollection);
 
   const onAddCollectionFormSubmit = (formData: AddCollectionFormType) => {
-    onCollectionCreateStart({
-      variables: {
-        input: {
-          name: formData.name,
-          nofProducts: 0,
-          url: formData.image,
+    try {
+      onCollectionCreateStart({
+        variables: {
+          input: {
+            name: formData.name,
+            nofProducts: 0,
+            url: formData.image,
+          },
         },
-      },
-    });
+      });
+      navigate(-1);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   return (

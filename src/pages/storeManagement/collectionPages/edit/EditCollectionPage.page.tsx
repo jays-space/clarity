@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
 
@@ -22,6 +22,8 @@ import { AddStoreCollectionPageTemplate } from "@/components/templates";
 
 const EditStoreCollectionPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const { data: collectionData } = useQuery<
     ListCollectionsQuery,
     ListCollectionsQueryVariables
@@ -44,15 +46,20 @@ const EditStoreCollectionPage = () => {
   >(updateCollection);
 
   const onUpdateCollectionFormSubmit = (formData: AddCollectionFormType) => {
-    onCollectionCreateStart({
-      variables: {
-        input: {
-          id: currentCollectionData?.id as string,
-          name: formData.name,
-          url: formData.image,
+    try {
+      onCollectionCreateStart({
+        variables: {
+          input: {
+            id: currentCollectionData?.id as string,
+            name: formData.name,
+            url: formData.image,
+          },
         },
-      },
-    });
+      });
+      navigate(-1);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   return (

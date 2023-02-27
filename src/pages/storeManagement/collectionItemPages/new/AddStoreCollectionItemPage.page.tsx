@@ -5,10 +5,7 @@ import { useForm } from "react-hook-form";
 import { AddCupcakeFormType } from "./AddStoreCollectionItemPage.types";
 
 // GQL
-import {
-  listCollections,
-  updateCollection,
-} from "../../gql/queries.gql";
+import { listCollections, updateCollection } from "../../gql/queries.gql";
 import {
   CreateProductMutation,
   CreateProductMutationVariables,
@@ -24,9 +21,11 @@ import { ActivityIndicator, Page } from "@components/atomic";
 import { Heading } from "@typography";
 import { AddStoreCollectionItemFormTemplate } from "@/components/templates/pages/storeManagement/AddStoreCollectionItemPage";
 import { APIErrorMessage, Button } from "@/components/integrated";
+import { useNavigate } from "react-router-dom";
 
 const AddStoreCollectionItemPage = () => {
   const { control, handleSubmit, setValue } = useForm<AddCupcakeFormType>();
+  const navigate = useNavigate();
 
   const {
     data: collectionsData,
@@ -48,32 +47,41 @@ const AddStoreCollectionItemPage = () => {
   >(updateCollection);
 
   const onAddCupcakeFormSubmit = async (formData: AddCupcakeFormType) => {
-    onCupcakeCreateStart({
-      variables: {
-        input: {
-          collectionID: formData.collection,
-          name: formData.name,
-          pcs: formData.pcs,
-          price: formData.price,
-          units: formData.units,
-          description: formData.description,
-          url: formData.image,
+    try {
+      onCupcakeCreateStart({
+        variables: {
+          input: {
+            collectionID: formData.collection,
+            name: formData.name,
+            pcs: formData.pcs,
+            price: formData.price,
+            units: formData.units,
+            description: formData.description,
+            url: formData.image,
+          },
         },
-      },
-    });
+      });
+    } catch (e) {
+      alert(e);
+    }
 
     const collectionToUpdate = collectionsData?.listCollections?.items.find(
       (item) => item?.id === formData.collection
     );
 
-    onCollectionUpdateStart({
-      variables: {
-        input: {
-          id: formData.collection,
-          nofProducts: (collectionToUpdate?.nofProducts as number) + 1,
+    try {
+      onCollectionUpdateStart({
+        variables: {
+          input: {
+            id: formData.collection,
+            nofProducts: (collectionToUpdate?.nofProducts as number) + 1,
+          },
         },
-      },
-    });
+      });
+      navigate(-1);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   const collections = collectionsData?.listCollections?.items.filter(
