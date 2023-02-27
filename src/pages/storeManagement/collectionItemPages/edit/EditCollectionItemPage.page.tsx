@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 
@@ -28,6 +28,8 @@ import { APIErrorMessage, Button } from "@components/integrated";
 
 const EditStoreCollectionItemPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const { data: defaultData } = useQuery<
     GetProductQuery,
     GetProductQueryVariables
@@ -64,23 +66,28 @@ const EditStoreCollectionItemPage = () => {
   >(updateCupcake);
 
   const onUpdateCupcakeFormSubmit = async (formData: AddCupcakeFormType) => {
-    if (!params?.productID) return;
+    if (!params?.cupcakeID) return;
 
-    onCupcakeUpdateStart({
-      variables: {
-        input: {
-          id: params?.productID,
-          collectionID: formData.collection,
-          name: formData.name,
-          pcs: formData.pcs,
-          price: formData.price,
-          units: formData.units,
-          description: formData.description,
-          url: formData.image,
-          _version: defaultCupcakeData?._version,
+    try {
+      onCupcakeUpdateStart({
+        variables: {
+          input: {
+            id: params?.cupcakeID,
+            collectionID: formData.collection,
+            name: formData.name,
+            pcs: formData.pcs,
+            price: formData.price,
+            units: formData.units,
+            description: formData.description,
+            url: formData.image,
+            _version: defaultCupcakeData?._version,
+          },
         },
-      },
-    });
+      });
+      navigate(-1);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   const collections = collectionsData?.listCollections?.items.filter(

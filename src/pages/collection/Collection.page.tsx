@@ -8,6 +8,7 @@ import { ListCollectionsQuery, ListCollectionsQueryVariables } from "@/API";
 import { CollectionTemplate } from "@/components/templates/pages/Collection";
 import { Page } from "@/components/atomic";
 import { listCollections } from "../collections/gql/queries.gql";
+import { stringUtils } from "@/utils";
 
 const CollectionPage = () => {
   const params = useParams();
@@ -19,7 +20,9 @@ const CollectionPage = () => {
 
   const collection = data?.listCollections?.items.filter(
     (collection) =>
-      collection?.name === params?.collectionName && !collection?._deleted
+      collection?.name ===
+        stringUtils.splitAndJoin(params?.collectionName as string, "_", " ") &&
+      !collection?._deleted
   );
 
   return (
