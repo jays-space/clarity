@@ -4,6 +4,12 @@ const splitAndJoin = (string: string, splitOn: string, joinOn: string) => {
   return string.split(splitOn).join(joinOn);
 };
 
-const stringUtils = { splitAndJoin };
+const getString = (name: string) => {
+  let arr = name.split(" ");
+  arr.shift();
+  return arr.join(" ");
+};
+
+const stringUtils = { splitAndJoin, getString };
 
 export default stringUtils;

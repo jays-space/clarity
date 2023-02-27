@@ -3,7 +3,7 @@ import { HeroTemplate } from "@/components/templates";
 
 const Home = () => {
   return (
-    <Page>
+    <Page fullWidth>
       <HeroTemplate />
     </Page>
   );

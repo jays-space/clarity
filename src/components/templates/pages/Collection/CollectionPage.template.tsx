@@ -4,21 +4,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CupcakeType } from "@/types/Product.Types";
 
 // COMPONENTS
-import { Button, CollectionItemSelector } from "@/components/integrated";
+import { APIErrorMessage, Button, CollectionItemSelector } from "@/components/integrated";
 import { Heading } from "@/components/atomic/typography";
 import { useAppDispatch } from "@/store/hooks";
 import { addItem } from "@/store/modules/cart/cart.slice";
+import { IconNames } from "@/components/atomic/icon/iconNames.types";
+import { stringUtils } from "@/utils";
+import { ActivityIndicator } from "@/components/atomic";
+import { ApolloError } from "@apollo/client";
 
 interface ICollectionPageTemplate {
   products: CupcakeType[];
   refetch: () => void;
   loading: boolean;
+  error: ApolloError | undefined
 }
 
 const CollectionTemplate = ({
   products,
   refetch,
   loading,
+  error
 }: ICollectionPageTemplate) => {
   const navigate = useNavigate();
   const params = useParams();
@@ -31,42 +37,58 @@ const CollectionTemplate = ({
   };
 
   return (
-    <>
-      <div className={`w-/12 my-6`}>
+    <div className={`min-h-screen flex flex-col items-center`}>
+      <div className={`w-/12 my-6 flex flex-col items-center`}>
         <Heading
           title={`${
-            params?.collectionName ? params?.collectionName : ""
+            params?.collectionName
+              ? stringUtils.splitAndJoin(params?.collectionName, "_", " ")
+              : ""
           } cupcakes`}
           variant="h2"
         />
         <Button
-          label="refresh"
+          icon={IconNames.refresh}
           onClick={() => refetch()}
           loading={loading}
-          success={products && products.length > 0}
-          className={`mb-6`}
         />
       </div>
 
-      {
-        <div
-          className={`flex flex-row justify-center items-center flex-wrap gap-6`}
-        >
-          {products.map((cupcake) => {
+      <div
+        className={`flex flex-row justify-center items-center flex-wrap gap-6`}
+      >
+        {loading && (
+          <div className="w-full h-screen flex justify-center items-center -mt-14">
+            <ActivityIndicator />
+          </div>
+        )}
+
+        {error && (
+          <APIErrorMessage
+            title={error?.name || "Error"}
+            message={error?.message || "Error"}
+            onRetry={() => refetch()}
+          />
+        )}
+
+        {products &&
+          products.map((cupcake) => {
             return (
               <CollectionItemSelector
                 key={cupcake?.id}
                 name={cupcake?.name}
                 price={cupcake?.price}
                 src={cupcake?.url}
+                pcs={cupcake?.pcs}
                 onAddToBagClick={() => dispatch(addItem(cupcake))}
-                onViewCupcakeClick={() => onCollectionItemSelect(cupcake?.id.toString())}
+                onViewCupcakeClick={() =>
+                  onCollectionItemSelect(cupcake?.id.toString())
+                }
               />
             );
           })}
-        </div>
-      }
-    </>
+      </div>
+    </div>
   );
 };
 

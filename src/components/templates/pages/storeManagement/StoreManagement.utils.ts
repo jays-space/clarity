@@ -15,9 +15,9 @@ export const getRootStoreManagementMenuPaths = () => {
         {
           ...routerConfig.StoreAdminPage,
         },
-        {
-          ...routerConfig.AddStoreAdminPage,
-        },
+        // {
+        //   ...routerConfig.AddStoreAdminPage,
+        // },
       ]
     : [];
 };

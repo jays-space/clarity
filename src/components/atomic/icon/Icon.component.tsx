@@ -1,5 +1,6 @@
-import { BsBag, BsSearch, BsHandThumbsUp } from "react-icons/bs";
+import { BsBag, BsSearch, BsHandThumbsUp, BsPlusLg } from "react-icons/bs";
 import { AiOutlineLoading, AiOutlineWarning } from "react-icons/ai";
+import { BiRefresh } from "react-icons/bi";
 
 // TYPES
 import { IconColorType, IconNames } from "./iconNames.types";
@@ -71,6 +72,28 @@ const Icon = ({
       return (
         <AiOutlineWarning
           size={size}
+          color={getIconColor(color)}
+          className={className}
+          data-testid={testID}
+        />
+      );
+    }
+
+    case IconNames.add: {
+      return (
+        <BsPlusLg
+          size={size}
+          color={getIconColor(color)}
+          className={className}
+          data-testid={testID}
+        />
+      );
+    }
+
+    case IconNames.refresh: {
+      return (
+        <BiRefresh
+          size={size === 18 ? 24 : 18}
           color={getIconColor(color)}
           className={className}
           data-testid={testID}

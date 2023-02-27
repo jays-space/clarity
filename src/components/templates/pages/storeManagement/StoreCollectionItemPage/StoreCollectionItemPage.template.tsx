@@ -37,47 +37,68 @@ const StoreCollectionItemPageTemplate = ({
   const navigate = useNavigate();
   const location = useLocation();
 
+  const fillerText =
+    "Incidunt tempore, autem voluptatem modi, eaque obcaecati asperiores officiis nulla nisi, ullam numquam!";
+
   return (
     <Page>
       {name && description && price && uri && (
         <div
-          className={`flex flex-row gap-20 ${
-            isCartItemVisible ||isSearchVisible ? "-z-10" : "z-0"
+          className={`flex flex-row items-center min-h-screen gap-8 -mt-24 ${
+            isCartItemVisible || isSearchVisible ? "-z-10" : "z-0"
           } `}
         >
-          <div className={`overflow-hidden rounded-3xl flex-1`}>
+          <div className={`w-5/12 flex flex-col`}>
+            <Heading title={name} variant="h2" />
+            <Text copy={fillerText} size="xs" className={`mt-6`} />
+            <div className={`flex flex-row items-center gap-6`}>
+              <div className={`flex items-center gap-6 mt-8`}>
+                <Button
+                  variant="secondary"
+                  label="edit cupcake"
+                  onClick={() => navigate(`${location.pathname}/edit`)}
+                  className={`z-10`}
+                />
+
+                <Heading
+                  title={`${numberUtils.convertNumberToLocaleCurrency(
+                    price
+                  )}`}
+                  variant="h3"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`relative rounded-full w-3/12 max-h-[30rem] bg-gradient-to-b from-primary-300 via-fuchsia-300 to-purple-100`}
+          >
+            {/* <div className="w-full h-[30rem]" /> */}
             <Image
               src={uri}
               alt={name}
-              className={`w-full aspect-video rounded-3xl object-none object-center opacity-90`}
+              className={`absolute left-0 top-1/2 -translate-y-1/2 w-full aspect-square rounded-full object-cover opacity-90`}
             />
           </div>
-          <div className="flex flex-col flex-1 justify-between">
-            <div>
-              <Heading title={name} variant="h2" />
-              <div className={`flex flex-col gap-1 my-6`}>
-                <Text copy={"description"} uppercase size="xs" />
-                <Text copy={description} className={`mt-1`} />
-              </div>
-            </div>
 
-            <div className={`flex flex-row justify-between items-center gap-6`}>
-              <div
-                className={`flex lex-row justify-between items-baseline gap-1`}
-              >
-                <Text
-                  copy={`${numberUtils.convertNumberToLocaleCurrency(price)}`}
-                  size="3xl"
-                />
-                <Text copy={`/${pcs}pcs`} bold />
-              </div>
-              <Button
-                variant="secondary"
-                label="edit cupcake"
-                onClick={() => navigate(`${location.pathname}/edit`)}
-                className={`z-10`}
-              />
-            </div>
+          <div className={`flex flex-col gap-1 my-6 w-5/12`}>
+            <Text copy={"description"} uppercase size="xs" bold />
+            <Text copy={description} />
+
+            <Text
+              copy={"ingredients"}
+              uppercase
+              size="xs"
+              bold
+              className={`mt-6`}
+            />
+            <Text copy={fillerText} />
+
+            <Heading
+              title={`${pcs}pcs`}
+              variant="h2"
+              className={`mt-6 !text-primary-500`}
+            />
           </div>
         </div>
       )}

@@ -8,13 +8,22 @@ import { CartDropDown } from "../cartDropdown";
 import { CartItemType } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleCartVisibility } from "@/store/modules/cart/cart.slice";
+import { clearSearchResults } from "@/store/modules/search/search.slice";
 
 interface ICart {
   cartItems: CartItemType[];
   testID?: string;
+  searchSetterProps: {
+    setIsSearchInputVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setSearchParam: React.Dispatch<React.SetStateAction<string>>;
+  };
 }
 
-const Cart = ({ cartItems, testID = "" }: ICart) => {
+const Cart = ({
+  cartItems,
+  testID = "",
+  searchSetterProps: { setIsSearchInputVisible, setSearchParam },
+}: ICart) => {
   const dispatch = useAppDispatch();
   const selectCartItemsCount = cartItems.reduce(
     (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
@@ -28,12 +37,19 @@ const Cart = ({ cartItems, testID = "" }: ICart) => {
 
   const isCartItemVisible = useAppSelector((state) => state.cart.isVisible);
 
+  const handleToggleVisibility = () => {
+    dispatch(toggleCartVisibility());
+    dispatch(clearSearchResults());
+    setIsSearchInputVisible(false);
+    setSearchParam("");
+  };
+
   return (
     <>
       <button
-        className="relative p-2 my-1 rounded-full hover:bg-secondary-500 transition-colors duration-150 z-50"
+        className="relative p-2 my-1 rounded-full hover:bg-primary-200 hover:bg-opacity-80 transition-colors duration-150 z-50"
         data-testid={testID}
-        onClick={() => dispatch(toggleCartVisibility())}
+        onClick={handleToggleVisibility}
       >
         <Icon name={IconNames.cart} color="light" />
 

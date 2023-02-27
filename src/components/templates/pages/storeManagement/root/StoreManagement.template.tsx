@@ -30,7 +30,7 @@ const StoreManagementPageTemplate = ({
     <>
       {!isStoreRootPath ? (
         <div
-          className={`w-full flex flex-row justify-end items-center mt-4 mb-16`}
+          className={`w-full flex flex-row justify-end items-center mt-4 mb-16 z-40`}
         >
           {getRootStoreManagementMenuPaths().map(({ label, path }) => {
             return (

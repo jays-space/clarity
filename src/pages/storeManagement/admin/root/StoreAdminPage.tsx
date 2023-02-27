@@ -11,6 +11,7 @@ import { AdminUserType } from "@/types";
 import { ListUsersQuery, ListUsersQueryVariables } from "@/API";
 
 // COMPONENTS
+import { Text } from "@typography";
 import { ActivityIndicator, Page } from "@/components/atomic";
 import { Heading } from "@typography";
 import { APIErrorMessage, Button } from "@/components/integrated";
@@ -27,10 +28,6 @@ const StoreAdminPage = () => {
   const columns = useMemo<MRT_ColumnDef<AdminUserType>[]>(
     () => [
       {
-        accessorKey: "id",
-        header: "id",
-      },
-      {
         accessorKey: "firstName",
         header: "first name",
       },
@@ -39,21 +36,38 @@ const StoreAdminPage = () => {
         header: "last name",
       },
       {
-        accessorKey: "id",
-        header: "Actions",
+        accessorKey: "email",
+        header: "email",
+      },
+      {
+        accessorKey: "isAdmin",
+        header: "",
         columns: [
           {
-            id: "id",
-            header: "",
+            id: "account type",
+            header: "account type",
             Cell: ({ row }) => (
-              <Button
-                onClick={() => navigate(`${row.original.id}/edit`)}
-                label="edit"
-              />
+              <Text copy={row.original.isAdmin === true ? "admin" : "shopper"} />
             ),
           },
         ],
       },
+      // {
+      //   accessorKey: "id",
+      //   header: "Actions",
+      //   columns: [
+      //     {
+      //       id: "id",
+      //       header: "",
+      //       Cell: ({ row }) => (
+      //         <Button
+      //           onClick={() => navigate(`${row.original.id}/edit`)}
+      //           label="edit"
+      //         />
+      //       ),
+      //     },
+      //   ],
+      // },
     ],
     [navigate]
   );

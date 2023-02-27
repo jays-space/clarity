@@ -1,25 +1,36 @@
-import Fuse from "fuse.js";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
+import { gql, useQuery } from "@apollo/client";
+
+// GQL
+import { ListProductsCartsQueryVariables, ListProductsQuery } from "@/API";
 
 // TYPES
 import { IconNames } from "@/components/atomic/icon/iconNames.types";
 
 // COMPONENTS
 import { Icon } from "@/components/atomic";
-import { ChangeEvent, useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-import { ListProductsCartsQueryVariables, ListProductsQuery } from "@/API";
-import { CupcakeType } from "@/types";
 import { SearchDropdown } from "./searchDropdown";
-import { useCartContext } from "@/contexts";
+
+// REDUX
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
+  clearSearchResults,
   search,
   setSearchDataSet,
   toggleSearchVisibility,
 } from "@/store/modules/search/search.slice";
+import { setCartVisibilityHidden } from "@/store/modules/cart/cart.slice";
 
 interface ISearch {
   testID?: string;
+  inputProps: {
+    setIsInputVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    isInputVisible: boolean;
+  };
+  searchProps: {
+    searchParam: string;
+    setSearchParam: React.Dispatch<React.SetStateAction<string>>;
+  };
 }
 
 export const listProducts = gql`
@@ -54,15 +65,30 @@ export const listProducts = gql`
   }
 `;
 
-const Search = ({ testID = "" }: ISearch) => {
+const Search = ({
+  testID = "",
+  inputProps: { isInputVisible, setIsInputVisible },
+  searchProps: { searchParam, setSearchParam },
+}: ISearch) => {
   const searchResults = useAppSelector((state) => state.search.results);
   const dispatch = useAppDispatch();
 
-  const [isInputVisible, setIsInputVisible] = useState<boolean>(false);
-  const [searchParam, setSearchParam] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const toggleInputVisibility = () => {
+    dispatch(setCartVisibilityHidden());
     setIsInputVisible((v) => !v);
+
+    if (isInputVisible === false && searchResults.length > 0) {
+      dispatch(clearSearchResults());
+    }
+
+    if (isInputVisible) {
+      dispatch(toggleSearchVisibility(false));
+      setSearchParam("");
+    } else {
+      dispatch(toggleSearchVisibility(true));
+    }
   };
 
   const { data } = useQuery<ListProductsQuery, ListProductsCartsQueryVariables>(
@@ -83,12 +109,18 @@ const Search = ({ testID = "" }: ISearch) => {
     }
   }, [searchResults, dispatch]);
 
+  // useEffect(() => {
+  //   if (searchParam === "") {
+  //     setSearchParam("");
+  //     setIsInputVisible(false);
+  //   }
+  // }, [searchParam]);
+
   useEffect(() => {
-    if (searchResults.length <= 0) {
-      setSearchParam("");
-      setIsInputVisible(false);
+    if (isInputVisible) {
+      inputRef.current?.focus();
     }
-  }, [searchResults]);
+  }, [isInputVisible]);
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchParam(event.target.value);
@@ -98,24 +130,31 @@ const Search = ({ testID = "" }: ISearch) => {
   return (
     <div className={`relative my-1 flex flex-row justify-between items-center`}>
       <input
+        ref={inputRef}
         className={`flex-1 ${
           isInputVisible
-            ? "w-full pointer-events-auto"
+            ? "w-60 pointer-events-auto"
             : "w-0 pointer-events-none"
-        } transition-all duration-300 bg-transparent border-b-2 text-white`}
+        } transition-width duration-300 bg-transparent border-b-2 border-white text-white outline-fuchsia-400`}
         onChange={handleSearchInput}
         value={searchParam}
       />
 
       <button
-        className={`relative ml-1 p-2 rounded-full transition-colors duration-150 hover:bg-secondary-500`}
+        className={`relative ml-1 p-2 rounded-full transition-colors duration-150 hover:bg-primary-200 hover:bg-opacity-80`}
         data-testid={testID}
         onClick={toggleInputVisibility}
       >
         <Icon name={IconNames.search} color="light" />
       </button>
 
-      {searchResults && <SearchDropdown searchResults={searchResults} />}
+      {(isInputVisible || searchParam) && (
+        <SearchDropdown
+          searchResults={searchResults}
+          setIsInputVisible={setIsInputVisible}
+          setSearchParam={setSearchParam}
+        />
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ const ActivityIndicator = ({ className }: { className?: string }) => {
     <div className="my-6">
       <Icon
         name={IconNames.loading}
-        className={`text-primary-600 animate-spin ${className}`}
+        className={`!text-primary-600 animate-spin ${className}`}
       />
     </div>
   );

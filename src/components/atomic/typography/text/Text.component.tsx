@@ -34,7 +34,7 @@ const Text = ({
     capitalize
   )} ${setUpperCase(uppercase)} ${getTextColor(
     color
-  )} ${className} font-raleway! `;
+  )} ${className}`;
 
   if (variant === "span") return <span className={styles}>{copy}</span>;
   if (variant === "paragraph" && typeof copy === "string")
@@ -43,7 +43,7 @@ const Text = ({
     return (
       <>
         {copy.map((p) => (
-          <p key={p} className={`${styles} leading-relaxed`}>
+          <p key={p} className={`${styles} leading-relaxed tracking-normal font-body`}>
             {p}
           </p>
         ))}

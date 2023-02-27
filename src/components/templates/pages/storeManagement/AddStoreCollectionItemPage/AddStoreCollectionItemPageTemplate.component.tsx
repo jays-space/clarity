@@ -85,7 +85,7 @@ const AddStoreCollectionItemFormTemplate = ({
             </label>
             <select
               className={`w-full mb-6 outline-2 border-2 text-text outline-primary-800 border-primary-200
-            rounded-md font-raleway tracking-wide transition-all duration-300 self-stretch`}
+            rounded-md font-body tracking-wide transition-all duration-300 self-stretch`}
               onChange={(e) => {
                 setValue("collection", e.target.value);
               }}

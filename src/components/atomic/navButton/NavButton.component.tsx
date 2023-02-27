@@ -27,7 +27,7 @@ const NavButton = ({ label, path = "#" }: INavButton) => {
       to={path}
       className={`mr-4 last-of-type:mr-0 rounded-md text-text  hover:text-opacity-100 ${isActiveLink()} transition duration-150`}
     >
-      <div className="px-6 py-2 font-raleway font-semibold text-xs uppercase tracking-wider">
+      <div className="px-6 py-2 font-body font-semibold text-xs uppercase tracking-wider">
         {label}
       </div>
     </Link>

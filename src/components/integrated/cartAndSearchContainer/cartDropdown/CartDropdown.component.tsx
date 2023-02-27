@@ -14,11 +14,11 @@ interface ICartDropdown {
 
 const CartDropdown = ({ cartItems, total }: ICartDropdown) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div
-      className={`absolute w-80 h-[540px] flex flex-col p-5 border-2 border-secondary-600 bg-white top-16 right-0 z-50`}
+      className={`absolute w-80 h-[540px] flex flex-col p-3 border-2 border-primary-300 bg-white top-16 right-0 z-50`}
     >
       <div className="h-full flex flex-col">
         {cartItems.length ? (
@@ -26,14 +26,22 @@ const CartDropdown = ({ cartItems, total }: ICartDropdown) => {
             <CartItem key={cartItem.id} item={cartItem} />
           ))
         ) : (
-          <span className="empty-message">Your cart is empty</span>
+          <div className="w-full h-full flex justify-center items-center">
+            <Text copy="Your cart is empty" />
+          </div>
         )}
       </div>
 
-      <Text copy={`Basket Total: R${total}`} bold size="lg" className="mb-2" />
+      <Text
+        copy={`Basket Total: R${total.toFixed(2)}`}
+        bold
+        size="lg"
+        className="mb-2 font-cursive tracking-wider text-center"
+      />
 
       <div className="flex flex-row justify-center items-center">
         <Button
+          variant="primary"
           label="checkout"
           onClick={() => {
             navigate("/checkout");

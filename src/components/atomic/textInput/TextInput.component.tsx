@@ -88,9 +88,9 @@ function TextInput<ContentType extends FieldValues>({
               rows={4}
               className={`outline-2 border-2 ${
                 error
-                  ? "text-secondary-600 outline-secondary-600 border-secondary-300"
+                  ? "text-primary-600 outline-primary-600 border-primary-300"
                   : "text-text outline-primary-800 border-primary-200"
-              } rounded-md font-raleway tracking-wide transition-all duration-300 self-stretch ${inputClassName}`}
+              } rounded-md font-body tracking-wide transition-all duration-300 self-stretch ${inputClassName}`}
               onChange={onChange}
               placeholder={placeholder}
             />
@@ -99,7 +99,7 @@ function TextInput<ContentType extends FieldValues>({
               <span>
                 <Text
                   copy={error.message || "Error"}
-                  className={`text-secondary-600 self-stretch`}
+                  className={`text-primary-600 self-stretch`}
                   size="sm"
                   capitalize={capitalize}
                   uppercase={uppercase}
@@ -149,9 +149,9 @@ function TextInput<ContentType extends FieldValues>({
               step={step}
               className={`outline-2 border-2 ${
                 error
-                  ? "text-secondary-600 outline-secondary-600 border-secondary-300"
+                  ? "text-primary-600 outline-primary-600 border-primary-300"
                   : "text-text outline-primary-800 border-primary-200"
-              } rounded-md font-raleway tracking-wide transition-all duration-300 self-stretch ${inputClassName}`}
+              } rounded-md font-body tracking-wide transition-all duration-300 self-stretch ${inputClassName}`}
               onChange={onChange}
               placeholder={placeholder}
             />
@@ -160,7 +160,7 @@ function TextInput<ContentType extends FieldValues>({
               <span>
                 <Text
                   copy={error.message || "Error"}
-                  className={`text-secondary-600 self-stretch`}
+                  className={`text-primary-600 self-stretch`}
                   size="sm"
                   capitalize={capitalize}
                   uppercase={uppercase}
